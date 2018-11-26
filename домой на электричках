@@ -1,0 +1,70 @@
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    inf = 10 ** 9
+    a = []
+    b = []
+    c = []
+    d = []
+    line = input_file.readline().split()
+    n, f = int(line[0]), int(line[1])
+    line = input_file.readline().split()
+    m = int(line[0])
+ 
+    for i in range(m):
+        line = input_file.readline().split()
+        tmp = int(line[0])
+        if tmp % 2 == 0:
+            do = (tmp * 2) - 2
+        else:
+            do = (tmp * 2) - 2
+        if int(line[0]) > 2:
+            for j in range(1, do, 2):
+                a.append(int(line[j]))
+                b.append(int(line[j+1]))
+                c.append(int(line[j+2]))
+                d.append(int(line[j+3]))
+        if int(line[0]) == 2:
+            a.append(int(line[1]))
+            b.append(int(line[2]))
+            c.append(int(line[3]))
+            d.append(int(line[4]))
+ 
+    print(a)
+    print(b)
+    print(c)
+    print(d)
+ 
+    distination = []
+    for i in range(n):
+        distination.append(inf)
+    s = len(a)
+ 
+    distination[0] = 0
+    for i in range(n-1):
+        for j in range(s):
+            if distination[c[j] - 1] > d[j] and distination[a[j] - 1] != inf and b[j] >= distination[a[j] - 1]:
+                distination[c[j] - 1] = d[j]
+ 
+    for i in range(n):
+        if distination[i] == inf:
+            distination[i] = 0
+ 
+    print(distination)
+ 
+    for i in range(n):
+        if distination[i] == 0:
+            distination[i] = -1
+            distination[0] = 0
+    print(distination)
+ 
+    ans = distination[f-1]
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
