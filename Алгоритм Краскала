@@ -1,0 +1,58 @@
+p = []
+ 
+ 
+def get(v):
+    if p[v - 1] == v:
+        return v
+    p[v - 1] = get(p[v - 1])
+    return p[v - 1]
+ 
+ 
+def unite(u, v):
+    u = get(u)
+    v = get(v)
+    p[u - 1] = v
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+ 
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    a = []
+    b = []
+    c = []
+    ans = 0
+ 
+    for i in range(n):
+        p.append(i + 1)
+ 
+    pool = []
+ 
+    for it in range(m):
+        line = input_file.readline().split()
+        line = [int(x) for x in line]
+        pool.append(line)
+ 
+    pool.sort(key=lambda line: line[2])
+ 
+    for i in range(m):
+        a.append(pool[i][0])
+        b.append(pool[i][1])
+        c.append(pool[i][2])
+ 
+    for i in range(m):
+        if get(a[i]) != get(b[i]):
+            ans += c[i]
+            unite(a[i], b[i])
+ 
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
