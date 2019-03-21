@@ -1,0 +1,72 @@
+
+Вася получает доступ в Интернет с помощью мобильного телефона. Однако такая связь очень нестабильна, поэтому каждый раз после подключения ему приходиться проверять подключение. Для этого он просто в командной строке набирает примерно следующую фразу: «ping name», где name – это имя удаленного сервера, который точно находится в сети. Затем идет обмен пакетами с сервером и выдается статистика. Однако у Васи недавно сломался модуль, отвечающий за подсчет и вывод статистики. Вам надо будет помочь Васе – написать аналогичный модуль.
+
+После вызова команды «ping» на удаленный сервер по очереди посылаются 4 пакета по 32 байта. Как только удаленный сервер получил пакет, он отвечает на него. Если пакет не уложился в определенное время (он должен дойти до удаленного сервера и вернуться обратно) в силу тех или иных причин (низкая скорость, отсутствие подключения и т.д.), он считается утерянным.
+
+Дана информация обо всех 4 пакетах. Требуется определить количество потерянных пакетов, максимальное, минимальное и среднее время обмена одного пакета.
+
+Входные данные
+Входной файл INPUT.TXT содержит ровно 5 строк. В первой строке находится фраза «ping	name», где name – это имя сервера. Имя сервера представляет собой IP адрес. IP-адрес – это 4 однобайтных числа (т.е. числа от 0 до 255), отделенные друг от друга точкой. В каждой из следующих 4 строк содержится либо фраза «Time out», если пакет считается утерянным, либо «Reply from name Time=number», где	name – это имя удаленного сервера, а number – время за которое вернулся пакет (number – целое число, 0 ≤ number ≤ 104).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите статистику по обмену пакетами с удаленным сервером. Следуйте формату, приведенному в примере. Среднее время округлите до целого числа по математическим правилам. Если все 4 пакета утеряны, то выведите только первые две строки.
+
+
+
+
+
+import math
+def rd(x):
+    if x - math.floor(x) < 0.5:
+        x = math.floor(x)
+        return x
+    else:
+        x = math.ceil(x)
+        return x
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = line[1].split('.')
+    name = str(line[1])
+    print(name)
+    output_file.write(str("Ping statistics for ") + str(name) + ":" + "\n")
+    a = []
+    lost = 0
+    time = []
+    for i in range(4):
+        line = input_file.readline()
+        if line == "Time out\n" or line == "Time out":
+            lost += 1
+        else:
+            line1 = line.split()
+            time.append(line1[3])
+        a.append(line)
+    print(time)
+    summ = 0
+    for i in range(len(time)):
+        time[i] = int(time[i]. replace('Time=', ''))
+        summ += time[i]
+ 
+    print(time)
+    time.sort()
+     
+    recieved = 4 - lost
+    percent = int(lost / 4 * 100)
+    print(a)
+    print(lost)
+    print(recieved)
+    print(percent)
+    output_file.write(str("Packets: Sent = 4 Received = ") + str(recieved) + " " + "Lost = " + str(lost) + " " + "(" + str(percent) + "%" + " " + "loss)" + "\n")
+    if lost < 4:
+        maxx = time[len(time) - 1]
+        minn = time[0]
+        avg = rd(summ / len(time))
+        output_file.write(str("Approximate round trip times:") + "\n")
+        output_file.write(str("Minimum = ") + str(minn) + " " + "Maximum = " + str(maxx) + " " + "Average = " + str(avg) + "\n")
+    #output_file.write(str(0) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
