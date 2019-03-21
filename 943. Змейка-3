@@ -1,0 +1,40 @@
+Время: 1 сек. Память: 16 Мб Сложность: 16%)
+Напишите программу, которая выводит элемент из строки Y и столбца X матрицы размера N×M, которая заполнена следующим образом:
+
+0	1	2	3
+7	6	5	4
+8	9	10	11
+Входные данные
+Входной файл INPUT.TXT содержит натуральные числа N, M, Y, X (Y ≤ N ≤ 50; X ≤ M ≤ 50). N - количество строк матрицы, M - количество столбцов матрицы, Y и X - номера строки и столбца искомого элемента.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите искомый элемент.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m, x, y = int(line[0]), int(line[1]), int(line[2]), int(line[3])
+    matrix  = []
+    count = 0
+    for i in range(n):
+        a = []
+        for j in range(m):
+            a.append(count)
+            count = count + 1
+        if i % 2 != 0:
+            a.reverse()
+        matrix.append(a)
+ 
+    print(matrix)
+ 
+    ans = matrix[x-1][y-1]
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
