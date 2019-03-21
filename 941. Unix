@@ -1,0 +1,40 @@
+Наш любимый сисадмин Алексей установил новую ОС семейства Unix. Основные её особенности - это стабильность, надежность, гибкость и масштабируемость и огромное количество идущего в стандартной поставке программного обеспечения. Одна из таких встроенных программ предназначена для сложения чисел, представленных в троичной системе счисления. Вы понимаете то, что Костя - известный тестер, и делом чести для него является найти ошибку в реализации столь сложной задачи. Помогите ему - напишите свою, абсолютно безошибочную версию «троичного калькулятора».
+
+Входные данные
+Входной файл INPUT.TXT содержит два, разделенных пробелом, числа N и M (0 ≤ N, M ≤ 231-1) в троичной системе счисления.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ – сумму N и M в десятичной системе счисления.
+
+def cb(num, to_base = 10, from_base = 10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return cb(n // to_base, to_base) + alphabet[n % to_base]
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = str(line[0]), str(line[1])
+    nd = cb(n, 10, 3)
+    md = cb(m, 10, 3)
+    print(nd, md)
+    ans = int(nd) + int(md)
+    print(ans)
+ 
+ 
+ 
+    output_file.write(str(ans) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
