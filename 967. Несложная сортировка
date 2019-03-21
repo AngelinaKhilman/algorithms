@@ -1,0 +1,59 @@
+Пусть x – целое положительное число, а k – натуральное число от 1 до 10. Пусть s(x, k) равно сумме цифр числа x, представленного в системе счисления по основанию k.
+
+Задано n чисел a1, a2, ...,	an. Необходимо вычислить последовательность bi по формуле bi = s(ai, k1) • s(ai, k2), после чего отсортировать последовательность bi по неубыванию.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит три целых числа: n, k1, k2 (1 ≤ n ≤ 1000, 2 ≤ k1, k2 ≤ 10). Вторая строка содержит n целых чисел: ai (1 ≤ ai ≤ 109).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите n чисел – bi в требуемом порядке.
+
+def cb(num, to_base = 10, from_base = 10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return cb(n // to_base, to_base) + alphabet[n % to_base]
+import math
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, k1, k2 = int(line[0]), int(line[1]), int(line[2])
+    line = input_file.readline().split()
+    a = []
+    for i in range(n):
+        a.append(int(line[i]))
+    b = []
+    for i in range(n):
+        q = list(cb(a[i], k1, 10))
+        print(q)
+        sum1 = 0
+        for j in range(len(q)):
+            sum1 += int(q[j])
+        print(sum1)
+        w = list(cb(a[i], k2, 10))
+        print(w)
+        sum2 = 0
+        for j in range(len(w)):
+            sum2 += int(w[j])
+        print(sum2)
+        b.append(sum1 * sum2)
+ 
+    b.sort()
+    print(b)
+ 
+ 
+ 
+    output_file.write(str(' '.join(str(x) for x in b)) + '\n')
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
