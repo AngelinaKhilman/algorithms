@@ -1,0 +1,98 @@
+
+Время от времени каждому школьнику, изучающему английский язык, приходится сдавать учителю сочинение на английском языке. Учителя английского языка бывают разные. Когда школьник использует в сочинении слова, которые на уроках еще не проходили, одни восхищаются юным талантом, другие багровеют от злости и ставят двойку непослушному ученику, осмелившемуся кичиться своими знаниями.
+
+К сожалению, Ваша учительница из других. Она не потерпит ни малейшего отступления от использования словарного запаса. В этот раз еще одна беда обрушилась на Вашу голову. Сочинение, заданное на завтра контрольное сочинение по выученным словам. А это значит, что все слова, которые Вы выучили на уроках, должны присутствовать в сочинении хотя бы по одному разу.
+
+Таким образом, перед сдачей сочинения Вам необходимо проверить, что каждое слово в тексте сочинения встречается в словаре, и каждое слово из словаря встречается в тексте.
+
+Входные данные
+В первой строке входного файла INPUT.TXT находится два числа N и M (1 ≤ N ≤ 103, 1 ≤ M ≤ 105). В следующих N строках находится по одному слову из словаря. Все слова состоят из строчных английских букв. Длина каждого слова не превышает 20. Каждое слово состоит хотя бы из одного символа. Лишних пробелов перед словом и после него нет.
+
+В следующих M строках находится текст сочинения. Текст состоит из заглавных и строчных английских букв, пробелов и знаков препинания: точек (.), запятых (,), двоеточий (:), точек с запятыми (;), тире (-), апострофов ('), кавычек ("), восклицательных (!) и вопросительных (?) знаков.
+
+Общая длина текста не превосходит 104 символов. В данной задаче большие и маленькие буквы в словах не различаются.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите «Everything is going to be OK.», если с сочинением все в порядке. Если не все слова из текста встречаются в словаре, выведите «Some words from the text are unknown.». Если же предыдущее неверно, но некоторые слова из словаря не встречаются в тексте, выведите «The usage of the vocabulary is not perfect.».
+
+
+import string
+  
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    b = []
+    for i in range(n):
+        line = input_file.readline().split()
+        q = str(line[0])
+        q = q.lower()
+        b.append(q)
+  
+  
+    print(b)
+    vs = []
+    for i in range(len(b)):
+        vs.append(0)
+    c = []
+    for i in range(m):
+        line = input_file.readline().lower()
+        a = []
+        line += ','
+        word = ""
+        for ch in line:
+            if 'a' <= ch <= 'z':
+                word += ch
+            else:
+                if len(word):
+                    a.append(word)
+                    word = ""
+        c.append(a)
+    vs2 = []
+  
+    for i in range(len(c)):
+        for j in range(len(c[i])):
+            c[i][j] = c[i][j].lower()
+            if c[i][j] == '':
+                c[i].remove('')
+    print(c)
+    for i in range(len(c)):
+        vs3 = []
+        for j in range(len(c[i])):
+            vs3.append(0)
+        vs2.append(vs3)
+    print(vs2)
+    flag = True
+    flag1 = True
+    for i in range(len(c)):
+        for j in range(len(c[i])):
+            for k in range(len(b)):
+                if c[i][j] == b[k]:
+                    vs[k] = 1
+                    vs2[i][j] = 1
+    ans = 0
+    print(vs)
+    print(vs2)
+    for i in range(len(vs)):
+        if vs[i] == 0:
+            flag = False
+    for i in range(len(vs2)):
+        for j in range(len(vs2[i])):
+            if vs2[i][j] == 0:
+                flag1 = False
+    print(flag, flag1)
+    if flag == True and flag1 == True:
+        ans = "Everything is going to be OK."
+    else:
+        if (flag == False and flag1 == False) or (flag == True and flag1 == False):
+            ans = "Some words from the text are unknown."
+        else:
+            if flag1 == True and flag == False:
+                ans = "The usage of the vocabulary is not perfect."
+    print(ans)
+    output_file.write(str(ans) + "\n")
+  
+  
+if __name__ == "__main__":
+    main()
