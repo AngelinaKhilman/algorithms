@@ -1,0 +1,46 @@
+(Время: 0,4 сек. Память: 16 Мб Сложность: 28%)
+Требуется написать программу, которая в массиве из n целых чисел наименьший элемент поместит на первое место, наименьший из оставшихся – на последнее, следующий по величине – на второе место, следующий – на предпоследнее и так далее – до середины массива.
+
+Входные данные
+Во входном файле INPUT.TXT записано в первой строке число n (1 ≤ n ≤ 30000). Во второй строке записаны через пробел элементы массива, числа по абсолютной величине не большие 32767.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести элементы полученного массива, разделенные одним пробелом.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    b = []
+    c = []
+    line = input_file.readline().split()
+    for i in range(n):
+        a.append(int(line[i]))
+    a.sort()
+    print(a, b)
+    for i in range(n):
+        k = a[i]
+        a[i] = 10 ** 9
+        if i % 2 == 0:
+            b.append(k)
+        else:
+            c.append(k)
+        print(k)
+    print(b)
+    print(c)
+    c.reverse()
+    ans = b
+    for i in range(len(c)):
+        ans.append(c[i])
+    print(ans)
+ 
+    output_file.write(str(' '.join([str(x) for x in ans])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
