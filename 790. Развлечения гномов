@@ -1,0 +1,41 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Гномы свободно владеют системами счисления с разными основаниями и достигли они этого ежедневными тренировками. Именно поэтому каждое утро у гномов начинается с того, что они текущую календарную дату переводят в другую систему счисления. Ваше задание такое же: перевести заданную дату D/M/Y в систему счисления с основанием D+1.
+
+Для обозначения цифр больших 9 используются большие английские буквы в алфавитном порядке.
+
+Входные данные
+Входной файл INPUT.TXT содержит строку, содержащую дату в формате D/M/Y в десятичной системе счисления (1 ≤ D ≤ 31, 1 ≤ M ≤ 12, 1 ≤ Y ≤ 9999).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одну строку – дату в формате D/M/Y в системе счисления с основанием D+1.
+
+def convert_base(num, to_base=10, from_base=10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return convert_base(n // to_base, to_base) + alphabet[n % to_base]
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+ 
+    line = input_file.readline().split("/")
+    print(line)
+    d, m, y = int(line[0]), int(line[1]), int(line[2])
+    dn = convert_base(d, d + 1, 10)
+    mn = convert_base(m, d + 1, 10)
+    yn = convert_base(y, d + 1, 10)
+    print(dn, mn, yn)
+ 
+ 
+    output_file.write(str(dn) + "/" + str(mn) + "/" + str(yn) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
