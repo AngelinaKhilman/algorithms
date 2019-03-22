@@ -1,0 +1,43 @@
+(Время: 2 сек. Память: 16 Мб Сложность: 23%)
+Вам наверняка знакомы числа Фибоначчи: 1, 1, 2, 3, 5, 8, 13, 21... Они определяются рекуррентным соотношением: Fn = Fn-1 + Fn-2, F0 = F1 = 1.
+
+Требуется найти последнюю цифру n-го числа Фибоначчи.
+
+Входные данные
+Во входном файле INPUT.TXT содержится одно целое число n (0 ≤ n ≤ 108).
+
+Выходные данные
+В выходной файл OUTPUT.TXT необходимо вывести одно число - последнюю цифру числа Fn.
+
+def f(n):
+    if n == 0:
+        return 1
+    elif n == 1:
+        return 1
+    else:
+        f1 = 1
+        f2 = 1
+        for i in range(1, n):
+            f = (f1 + f2) % 10
+            f1 = f2
+            f2 = f
+        return f
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    ans = f(n)
+    print(ans)
+    sr = str(ans)
+    answ = sr[-1]
+    output_file.write(str(answ) + '\n')
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
