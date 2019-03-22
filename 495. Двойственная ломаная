@@ -1,0 +1,61 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 35%)
+Пусть задана некоторая замкнутая ломаная P. Двойственной для P ломаной называется ломаная, вершины которой находятся в серединах звеньев P.
+
+Определим понятие двойственной для P ломаной k-ого порядка dual(P, K) следующим образом:
+
+двойственной ломаной нулевого порядка является сама ломаная P (dual(P, 0) = P);
+если K > 0, то двойственной ломаной K-ого порядка является ломаная, двойственная для dual(P, K - 1).
+Задана замкнутая ломаная P и число K. Найдите длину двойственной для P ломаной k-ого порядка dual(P, K).
+
+Входные данные
+Входной файл INPUT.TXT содержит число звеньев исходной ломаной N (3 ≤ N ≤ 100). Каждая из последующих N строк содержит по два целых числа xi и yi - координаты i-ой вершины ломаной. Все xi и yi не превосходят 105 по абсолютной величине. Последняя строка входного файла содержит целое число K (0 ≤ K ≤ 10).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите искомую длину с точностью не хуже, чем 10-4.
+
+import math
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    x, y = [], []
+    for i in range(n):
+        line = input_file.readline().split()
+        x.append(int(line[0]))
+        y.append(int(line[1]))
+    x.append(x[0])
+    y.append(y[0])
+    line = input_file.readline().split()
+    k = int(line[0])
+    arr = []
+    length = 0
+    for i in range(n):
+        length += math.hypot(x[i + 1] - x[i], y[i + 1] - y[i])
+    arr.append('%.5f' % length)
+    print(arr)
+    print(x, y)
+ 
+    for j in range(k):
+        x1, y1 = [], []
+        for i in range(n):
+            x1.append((x[i] + x[i + 1]) / 2)
+            y1.append((y[i] + y[i + 1]) / 2)
+        x1.append(x1[0])
+        y1.append(y1[0])
+        length = 0
+        for i in range(n):
+            length += math.hypot(x1[i + 1] - x1[i], y1[i + 1] - y1[i])
+            print(length)
+        arr.append('%.5f' % length)
+        x = x1
+        y = y1
+        print(x, y)
+    print(arr)
+    output_file.write(str(arr[len(arr) - 1]) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
