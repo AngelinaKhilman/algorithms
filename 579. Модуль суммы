@@ -1,0 +1,41 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 25%)
+Дана последовательность целых чисел. Требуется найти подпоследовательность заданной последовательности с максимальным модулем суммы входящих в нее чисел. Напомним, что модуль целого числа x равняется x, если x ≥ 0 и -x, если x < 0.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит натуральное число n (1 ≤ n ≤ 10000) - длину последовательности. Во второй строке записаны n целых чисел, по модулю не превосходящих 10000.
+
+Выходные данные
+В первой строке выходного файла OUTPUT.TXT выведите длину k выбранной вами подпоследовательности. Во второй строке должны быть записаны k различных чисел, разделенных пробелами - номера выбранных членов последовательности.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    line = input_file.readline().split()
+    a = []
+    ans = 0
+    b = []
+    s = 0
+    s1 = 0
+    for i in range(n):
+        if int(line[i]) >= 0:
+            b.append(i + 1)
+            s += int(line[i])
+        else:
+            s1 += int(line[i])
+            a.append(i + 1)
+    if abs(s1) > abs(s):
+        output_file.write(str(len(a)) + "\n")
+        output_file.write(str(' '.join([str(x) for x in a])) + "\n")
+    else:
+ 
+        output_file.write(str(len(b)) + "\n")
+        output_file.write(str(' '.join([str(x) for x in b])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
