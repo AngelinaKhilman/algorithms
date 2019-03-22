@@ -1,0 +1,55 @@
+Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Катя и Таня играли в слова. Одна из девочек называла слово на английском языке, вторая должна найти анаграмму. Анаграмма – это слово, полученное из другого слова путем перестановки всех без исключения букв первого слова.
+
+Написать программу, которая проверит, правильно ли девочки создают анаграммы.
+
+Входные данные
+Входной файл INPUT.TXT содержит два слова на английском языке в нижнем регистре, разделенные пробелом. Каждое слово содержит от 1 до 20 символов.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите «YES», если анаграмма подобрана правильно, иначе выведите «NO».
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    s1 = str(line[0])
+    set_s1 = set(line[0])
+    s11 = [0] * len(set_s1)
+    set_s1 = list(set_s1)
+    s2 = str(line[1])
+    set_s2 = set(line[1])
+    set_s2 = list(set_s2)
+    s22 = [0] * len(set_s2)
+    print(s11, s22)
+    print(s1, set_s1, s2, set_s2)
+    set_s1.sort()
+    set_s2.sort()
+    ans = "YES"
+    if set_s1 == set_s2:
+        for i in range(len(s1)):
+            for j in range(len(set_s1)):
+                if s1[i] == set_s1[j]:
+                    s11[j] += 1
+        for i in range(len(s2)):
+            for j in range(len(set_s2)):
+                if s2[i] == set_s2[j]:
+                    s22[j] += 1
+        print(s11, s22)
+        if len(s11) != len(s22):
+            ans = "NO"
+        else:
+            for i in range(len(s11)):
+                if s11[i] != s22[i]:
+                    ans = "NO"
+                if s1[i] == s2[i]:
+                    ans = "NO"
+ 
+    else:
+        ans = "NO"
+    print(ans)
+    output_file.write(str(ans) + '\n')
+ 
+ 
+if __name__ == "__main__":
+    main()
