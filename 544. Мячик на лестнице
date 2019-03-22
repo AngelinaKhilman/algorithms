@@ -1,0 +1,53 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 42%)
+На вершине лесенки, содержащей N ступенек, находится мячик, который начинает прыгать по ним вниз, к основанию. Мячик может прыгнуть на следующую ступеньку, на ступеньку через одну или через две. То есть, если мячик лежит на 8-ой ступеньке, то он может переместиться на 5-ую, 6-ую или 7-ую.
+
+Требуется написать программу, которая определит число всевозможных "маршрутов" мячика с вершины на землю.
+
+Входные данные
+Входной файл INPUT.TXT содержит число N (0 < N ≤ 70).
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать искомое число.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+ 
+    m = int(line[0])
+    n = 3
+    if m == 1:
+ 
+        output_file.write(str(1) + "\n")
+    if m == 0:
+ 
+        output_file.write(str(1) + "\n")
+    if m == 2:
+ 
+        output_file.write(str(2) + "\n")
+ 
+    if m >= 3:
+        s = 0
+        b = []
+        b.append(1)
+ 
+        for i in range(m):
+            b.append(0)
+ 
+        summ = 0
+        for i in range(len(b)):
+            summ = 0
+            for j in range(n + 1):
+                summ = summ + b[i - j]
+            b[i] = summ
+        
+ 
+         
+        output_file.write(str(b[len(b) - 1]) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
