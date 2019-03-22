@@ -1,0 +1,35 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 36%)
+Задано натуральное число N. Требуется написать программу, которая находит количество натуральных чисел, не превышающих N и не делящихся ни на одно из чисел 2, 3, 5.
+
+Входные данные
+Входной файл INPUT.TXT содержит число N (1 ≤ N ≤ 109).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+   
+    if n == 1:
+        k = 1
+    else:
+        k = n
+        l = n
+        k = k - (l // 2)
+        print(k)
+        k = k - (l // 3) + (l // 6)
+        print(k)
+        k = k - (l // 5) + (l // 15) + (l // 10) - (l // 30)
+ 
+    print(k)
+ 
+ 
+    output_file.write(str(k) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+if __name__ == "__main__":
+    main()
