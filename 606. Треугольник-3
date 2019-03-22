@@ -1,0 +1,27 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 12%)
+Даны длины трех отрезков. Требуется проверить: могут ли они являться сторонами невырожденного треугольника.
+
+Входные данные
+Входной файл INPUT.TXT содержит 3 натуральных числа X Y Z – длины заданных отрезков. Длины отрезков записаны в одной строке через пробел и не превышают 1000.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите YES, если отрезки могут быть сторонами треугольника и NO в противном случае.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a, b, c = int(line[0]), int(line[1]), int(line[2])
+    if (a < b + c) and (b < a + c) and (c < a + b):
+        ans = "YES"
+    else:
+        ans = "NO"
+ 
+    output_file.write(str(ans) + "\n")
+    #output_file.write(str(' '.join([str(x) for x in m])) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
