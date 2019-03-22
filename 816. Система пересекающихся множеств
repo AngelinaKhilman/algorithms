@@ -1,0 +1,76 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 35%)
+На вступительном экзамене в один из крупнейших университетов нашей страны Вам предложили реализовать структуру данных для хранения множеств натуральных чисел.
+
+Структура данных должна хранить n множеств, в каждое из которых могут входить натуральные числа от 1 до m, при этом одно и то же число может принадлежать нескольким множествам одновременно. Необходимо реализовать операции добавления элемента в множество, вывода всех элементов множества и вывода номеров всех множеств, в которых лежит данный элемент.
+
+Реализуйте описанную структуру данных.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит натуральные числа m и n (1 ≤ m, n ≤ 100). Вторая строка входного файла содержит натуральное число k –количество операций со структурой данных, которые необходимо выполнить (0 ≤ k ≤ 105).
+
+Последующие k строк описывают эти операции. Описание операции может иметь один из трех форматов:
+
+ADD element set – добавить элемент element (1 ≤ element ≤ m) в множество номер set (1 ≤ set ≤ n);
+LISTSET set – вывести все элементы множества номер set (1 ≤ set ≤ n);
+LISTSETSOF element – вывести номера всех множеств, содержащих элемент element (1 ≤ element ≤ m).
+Общее количество операций LISTSET и LISTSETSOF не превышает 1000.
+
+Выходные данные
+Для каждой операции LISTSET или LISTSETSOF в выходной файл OUTPUT.TXT выведите соответствующий список элементов (или номеров множеств) в порядке возрастания. Если список пуст, выведите -1. Порядок вывода должен соответствовать порядку, в котором операции заданы во входном файле.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    a = []
+    arr = []
+    for i in range(100):
+        arr.append(set())
+    print(arr)
+    for i in range(100):
+        a.append(set())
+    line = input_file.readline().split()
+    k = int(line[0])
+ 
+    for i in range(k):
+        line = input_file.readline().split()
+ 
+        s = str(line[0])
+ 
+        if s == "ADD":
+            ch, kd = int(line[1]), int(line[2])
+ 
+            a[kd - 1].add(ch)
+            arr[ch - 1].add(kd)
+        if s == "LISTSET":
+            kke = int(line[1])
+ 
+            if len(a[kke - 1]) != 0:
+                qqq = []
+                for j in a[kke - 1]:
+                    qqq.append(j)
+                qqq.sort()
+                print(qqq)
+                output_file.write(str(' '.join([str(x) for x in qqq])) + '\n')
+            else:
+                output_file.write(str(-1) + '\n')
+ 
+        if s == "LISTSETSOF":
+            el = int(line[1])
+            if len(arr[el - 1]) != 0:
+                www = []
+                for j in arr[el - 1]:
+                    www.append(j)
+                www.sort()
+                print(www)
+                output_file.write(str(' '.join([str(x) for x in www])) + '\n')
+            else:
+                output_file.write(str(-1) + '\n')
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
