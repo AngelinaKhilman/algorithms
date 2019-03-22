@@ -1,0 +1,27 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 50%)
+Требуется найти сумму от 1 до N.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записано натуральное число N, не превышающее 10100.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT выведите одно целое число – ответ на задачу.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    if n > 0:
+        b = (1 + n) * n // 2
+    else:
+        b = (-1 + a) * abs(n) // 2 + 1
+    print(b)
+ 
+    output_file.write(str(b) + " ")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
