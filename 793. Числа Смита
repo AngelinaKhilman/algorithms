@@ -1,0 +1,59 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 30%)
+Число Смита — такое составное число, сумма цифр которого равняется сумме цифр всех его простых сомножителей. Так, примером числа Смита может служить 202, поскольку 2 + 0 + 2 = 4 и 2 + 1 + 0 + 1 = 4 (202 = 2 * 101). Напишите программу, которая для заданной последовательности чисел определяет, какие из них являются числами Смита.
+
+Входные данные
+Входной файл INPUT.TXT содержит не более 20 натуральных чисел в пределах от 4 до 106.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите строку из 0 и 1 (1, если соответствующее число является числом Смита и 0 иначе).
+
+Пример
+
+def primfacs(n):
+   i = 2
+   primfac = []
+   while i * i <= n:
+       while n % i == 0:
+           primfac.append(str(int(i)))
+           n = n / i
+       i = i + 1
+   if n > 1:
+       primfac.append(str(int(n)))
+   return primfac
+def rzh(n):
+    k = list(n)
+    s = 0
+    for i in range(len(k)):
+        s += int(k[i])
+    return s
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a = line
+    print(a)
+    ans = ""
+    for i in range(len(a)):
+        b = primfacs(int(a[i]))
+        print(b)
+        s = 0
+        for j in range(len(b)):
+            if b[j] != a[i]:
+                s += rzh(b[j])
+ 
+        print(s, rzh(a[i]))
+ 
+        if rzh(a[i]) == s:
+            ans += "1"
+        else:
+            ans += "0"
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
