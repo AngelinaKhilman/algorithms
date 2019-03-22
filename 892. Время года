@@ -1,0 +1,32 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 10%)
+По заданному номеру месяца в году требуется определить время года.
+
+Входные данные
+Входной файл INPUT.TXT содержит натуральное число N (N≤100) – номер месяца.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите для летних месяцев значение «Summer», для зимних – «Winter», для весенних – «Spring», для осенних – «Autumn». Если число не соответствует возможному значению месяца, то в этом случае следует вывести «Error».
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    if n > 12:
+        ans = "Error"
+    if n == 1 or n == 2 or n == 12:
+        ans = "Winter"
+    if n == 3 or n == 4 or n == 5:
+        ans = "Spring"
+    if n == 6 or n == 7 or n == 8:
+        ans = "Summer"
+    if n == 9 or n == 10 or n == 11:
+        ans = "Autumn"
+ 
+ 
+ 
+    output_file.write(str(ans) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
