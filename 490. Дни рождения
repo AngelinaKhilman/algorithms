@@ -1,0 +1,40 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Два одноклассника Петя и Вася родились не ранее 1993 и не позднее 1994 года, причем, Петя старше Васи.
+
+Напишите программу, которая по заданным дням рождения определяет: на сколько дней Петя старше Васи.
+
+Заметим, что 1993 и 1994 года не являются високосными, т.е. в феврале в них ровно 28 дней.
+
+Входные данные
+Входной файл INPUT.TXT содержит дату рождения Пети в первой строке и дату рождения Васи во второй. Даты заданы в формате «ДД.ММ.ГГ», например, строка 06.02.93 означает дату рождения 6 февраля 1993 года.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите единственное число – искомое количество дней.
+
+from datetime import date
+ 
+def diff_dates(date1, date2):
+    return abs(date2 - date1).days
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(".")
+    d1, m1, y1 = str(line[0]), str(line[1]), str(line[2])
+ 
+    line = input_file.readline().split(".")
+    d2, m2, y2 = str(line[0]), str(line[1]), str(line[2])
+ 
+    data1 = date(int(y1), int(m1), int(d1))
+    data2 = date(int(y2), int(m2), int(d2))
+    ans = diff_dates(data2, data1)
+    print(ans)
+    output_file.write(str(ans) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
