@@ -1,0 +1,37 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 25%)
+Целое положительное число m записывается в двоичной системе счисления, разряды (в этой записи) переставляются в обратном порядке и число переводится в десятичную систему счисления. Получившееся число принимается за значение функции B(m).
+
+Требуется написать программу, которая для заданного m вычислит B(m).
+
+Входные данные
+Входной файл INPUT.TXT содержит натуральное число m (m ≤ 109).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите значение B(m).
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    s = bin(n)
+    print(s)
+    s = s[2::]
+    print(s)
+    s = list(s)
+    print(s)
+    s.reverse()
+    s1 = ""
+    for i in range(len(s)):
+        s1 += s[i]
+    print(s1)
+    ans = int(s1, 2)
+    print(ans)
+ 
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
