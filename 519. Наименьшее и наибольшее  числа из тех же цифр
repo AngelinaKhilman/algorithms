@@ -1,0 +1,38 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 33%)
+Требуется написать программу, которая найдет наименьшее и наибольшее числа, состоящие из тех же цифр, что и заданное натуральное число N.
+
+Входные данные
+Входной файл INPUT.TXT содержит натуральное число N (N ≤ 2×109).
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать в одной строке наименьшее, а через пробел – наибольшее числа.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, s = int(line[0]), str(line[0])
+    a = list(s)
+    a.sort()
+    print(a)
+    for i in range(len(a)):
+        if a[i] != '0' and a[0] == '0':
+            a[i], a[0] = a[0], a[i]
+    ansmin = ""
+    for i in range(len(a)):
+        ansmin = ansmin + a[i]
+    print(ansmin)
+    a.sort()
+    a.reverse()
+    print(a)
+    ansmax = ""
+    for i in range(len(a)):
+        ansmax = ansmax + a[i]
+    print(ansmax)
+    output_file.write(str(ansmin) + " " + str(ansmax) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
