@@ -1,0 +1,61 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Найдите простое число из отрезка [a, b] с максимальной суммой цифр. Если таких чисел несколько, выберите из них максимальное.
+
+Напомним, что простым называется натуральное число, большее единицы и делящееся только на единицу и на само себя.
+
+Входные данные
+Входной файл INPUT.TXT содержит два целых числа: a и b (1 ≤ a ≤ b ≤ 108, b−a ≤ 1000).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу. Если указанный отрезок не содержит простых чисел, выведите в выходной файл -1.
+
+import math
+def pr(n):
+    i = 2
+    limit = int(math.sqrt(n))
+    while i <= limit:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a, b = int(line[0]), int(line[1])
+ 
+    mas = []
+    if a == 1:
+        a = a + 1
+ 
+    for i in range(a, b + 1):
+        if pr(i):
+            s = str(i)
+            s = list(s)
+            for j in range(len(s)):
+                s[j] = int(s[j])
+            summ = sum(s)
+            mas.append((i, summ))
+    if len(mas) == 0:
+        ans = -1
+    else:
+ 
+        mas.sort(key = lambda x: x[1])
+        mas.reverse()
+        ans = mas[0][0]
+        for i in range(1, len(mas)):
+            if mas[0][1] == mas[i][1]:
+                if ans < mas[i][0]:
+                    ans = mas[i][0]
+    print(ans)
+    print(mas)
+ 
+    output_file.write(str(ans) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
