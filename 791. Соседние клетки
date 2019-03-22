@@ -1,0 +1,51 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 22%)
+Клетки шахматной доски пронумерованы числами от 1 до 64 по строкам слева направо и снизу вверх. Напишите программу, которая по заданному номеру клетки определяет номера всех клеток, имеющих с ней общую сторону.
+
+Входные данные
+Входной файл INPUT.TXT содержит одно целое число от 1 до 64.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите через пробел в порядке возрастания номера всех клеток, имеющих с заданной общую сторону.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n = int(line[0])
+    a = n % 8 - 1
+    if a <= 0 and n % 8 != 0:
+        a = 0
+    else:
+        a = n - 1
+    if n % 8 == 0:
+        b = 0
+    else:
+        b = n + 1
+    if n + 8 > 64:
+        c = 0
+    else:
+        c = n + 8
+    if n - 8 > 0:
+        d = n - 8
+    else:
+        d = 0
+    print(a, b, c, d)
+    r = []
+    if a > 0:
+        r.append(a)
+    if b > 0:
+        r.append(b)
+    if c > 0:
+        r.append(c)
+    if d > 0:
+        r.append(d)
+ 
+    r.sort()
+ 
+    print(r)
+ 
+    output_file.write(str(' '.join([str(x) for x in r])) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
