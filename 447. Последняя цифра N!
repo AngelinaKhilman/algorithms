@@ -1,0 +1,29 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 39%)
+Требуется найти последнюю ненулевую цифру числа N! = 1*2*3*…*N.
+
+Входные данные
+Входной файл INPUT.TXT содержит единственное натуральное число N (N ≤ 9999).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    ans = 1
+    for i in range(1, n + 1):
+        ans = (ans * i)
+        ans = str(ans)
+        ans = ans.rstrip("0")
+        ans = int(ans)
+        ans = ans % 1000000
+    answ = str(ans)
+    answ = answ[-1]
+    print(ans)
+    output_file.write(str(answ) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
