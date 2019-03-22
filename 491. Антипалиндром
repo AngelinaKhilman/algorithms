@@ -1,0 +1,43 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Палиндромом называют строку, читающуюся одинаково с обеих сторон. Задана строка s. Найдите ее наибольшую по длине подстроку, не являющуюся палиндромом.
+
+Входные данные
+Входной файл INPUT.TXT содержит строку s. Она состоит только из строчных букв английского алфавита, не пуста, а ее длина не превышает 100 000 символов.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу. Если все подстроки s являются палиндромами, выведите в выходной файл NO SOLUTION.
+
+def pol(s):
+    l = len(s)
+    for i in range(l // 2):
+        if s[i] != s[-1 - i]:
+            return True
+            quit()
+ 
+    return False
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    s = str(line[0])
+    sett = set(s)
+    print(sett)
+    if len(sett) > 1:
+        for i in range(len(s)):
+            p = s[:(len(s)-i)]
+            print(p)
+            if pol(p) == True:
+                ans = p
+                break
+        print(ans)
+    else:
+        ans = "NO SOLUTION"
+    print(ans)
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
