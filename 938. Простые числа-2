@@ -1,0 +1,59 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Знаете ли вы, что такое простое число? Простое число – это натуральное число, имеющее ровно два различных натуральных делителя: единицу и самого себя. Все остальные числа, кроме единицы, называются составными. Например, числа 2, 3, 5, 7, 11 являются простыми. А числа 4, 6, 10 – составными.
+
+Требуется из заданного набора чисел выбрать одно, имеющее максимальное количество простых делителей. Например, 30 имеет три простых делителя (2, 3 и 5), а 40 – только два (2 и 5).
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит число N – количество чисел в наборе. Во второй строке теста содержится N чисел, разделенных пробелом. Все числа во входных данных целые, принимающие значения от 2 до 1024.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите число с максимальным количеством простых делителей. Если таких чисел несколько, выведите наименьшее из них.
+
+import math
+def pr(n):
+    i = 2
+    limit = int(math.sqrt(n))
+    while i <= limit:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    line = input_file.readline().split()
+    a = []
+    b = []
+    c = []
+    for i in range(n):
+        a.append(int(line[i]))
+        b.append(0)
+    for i in range(n):
+        for j in range(2, a[i]):
+            if a[i] % j == 0 and pr(j):
+                b[i] += 1
+    for i in range(len(a)):
+        c.append((a[i], b[i]))
+    c.sort(key = lambda x: x[1])
+    c.reverse()
+    ans = c[0][0]
+    for i in range(1, len(c)):
+        if c[0][1] == c[i][1]:
+            if ans > c[i][0]:
+                ans = c[i][0]
+    print(c)
+    print(ans)
+    print(a)
+    print(b)
+    output_file.write(str(ans) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
