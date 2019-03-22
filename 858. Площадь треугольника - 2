@@ -1,0 +1,38 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 41%)
+Три попарно непараллельные прямые заданы коэффициентами ai, bi, ci соответствующего уравнения aix + biy = ci. Коэффициенты ai и bi не могут быть одновременно равны нулю.
+
+Требуется написать программу, определяющую площадь треугольника, образованного этими прямыми.
+
+Входные данные
+Входной файл INPUT.TXT содержит 3 строки, в каждой из которых записаны коэффициенты ai, bi, ci, разделенные пробелом. Все коэффициенты – целые числа, не превосходящие 10000 по абсолютной величине.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите значение площади треугольника с точностью не меньшей, чем три знака после запятой.
+
+
+import math
+def square(x1, y1, x2, y2, x3, y3):
+    return abs(1 / 2 * ((x1 - x3) * (y2 - y3) - (y1 - y3) * (x2 - x3)))
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    a1, b1, c1 = int(line[0]), int(line[1]), int(line[2])
+    line = input_file.readline().split(' ')
+    a2, b2, c2 = int(line[0]), int(line[1]), int(line[2])
+    line = input_file.readline().split(' ')
+    a3, b3, c3 = int(line[0]), int(line[1]), int(line[2])
+    x1 = -(c1 * b2 - c2 * b1) / (a1 * b2 - b1 * a2)
+    y1 = -(a1 * c2 - c1 * a2) / (a1 * b2 - b1 * a2)
+    x2 = -(c1 * b3 - c3 * b1) / (a1 * b3 - b1 * a3)
+    y2 = -(a1 * c3 - c1 * a3) / (a1 * b3 - b1 * a3)
+    x3 = -(c3 * b2 - c2 * b3) / (a3 * b2 - b3 * a2)
+    y3 = -(a3 * c2 - c3 * a2) / (a3 * b2 - b3 * a2)
+    ans = square(x1, y1, x2, y2, x3, y3)
+    ans = '%.5f' % ans
+    print(x1, y1, x2, y2, x3, y3)
+    print(ans)
+    output_file.write(str(ans) + '\n')
+ 
+if __name__ == "__main__":
+    main()
