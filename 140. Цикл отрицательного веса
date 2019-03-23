@@ -1,0 +1,50 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 46%)
+Дан взвешенный граф. Определить, есть ли в нем цикл отрицательного веса.
+
+Входные данные
+Во входном файле INPUT.TXT в первой строке записано число N (1 ≤ N ≤ 100) - количество вершин графа. В следующих N строках находится по N чисел - матрица смежности графа. Веса ребер не превышают по модулю 10000. Если ребра нет, соответствующее значение равно 100000.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите "YES", если цикл существует, или "NO" в противном случае.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    INF = 1e18
+    a = []
+    w = []
+    ans = "NO"
+    for i in range(n):
+        line = input_file.readline().split()
+        b = []
+  
+        for j in range(n):
+            b.append(int(line[j]))
+            if b[-1] == 100000:
+                b[-1] = INF
+            if i == j and int(line[j]) < 0:
+                ans = "YES"
+  
+        a.append(b)
+  
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if a[i][k] != INF and a[k][j] != INF:
+                    a[i][j] = min(a[i][j], a[i][k] + a[k][j])
+    print(a)
+  
+    for i in range(n):
+        if a[i][i] < 0:
+            ans = "YES"
+    print(ans)
+  
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+  
+  
+if __name__ == "__main__":
+    main()
