@@ -1,0 +1,77 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 46%)
+Перестановкой из N элементов называется упорядоченный набор из N различных чисел от 1 до N.
+
+Найдите по заданной перестановке следующую в лексикографическом порядке (будем считать, что за перестановкой (N, N-1, ... , 3, 2, 1) следует тождественная перестановка, то есть (1, 2, 3, ... , N)).
+
+Входные данные
+В первой строке входного файла INPUT.TXT содержится число N (1 ≤ N ≤ 104). Во второй строке содержится перестановка (последовательность натуральных чисел от 1 до N, разделенных пробелами).
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать искомую перестановку.
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n;
+    int strj, strl;
+    int indj, indl;
+    cin >> n;
+    int str[n];
+    if (n == 1){
+        for (int i = 0; i < n; i++){
+            cin >> str[i];
+        }
+        cout << str[0];
+    }
+    else{
+        for (int i = 0; i < n; i++){
+        cin >> str[i];
+        }
+ 
+        for (int j = 0; j < (n - 1); j++){
+            if (str[j] < str[j + 1])
+            {
+                indj = j;
+                strj = str[j];
+            }
+ 
+        }
+ 
+        for (int l = indj + 1; l < n; l++){
+            if (str[l] > strj)
+            {
+                indl = l;
+                strl = str[l];
+            }
+ 
+        }
+ 
+        int tmp = str[indj];
+        str[indj] = str[indl];
+        str[indl] = tmp;
+ 
+        int ans[n];
+        for (int i = 0; i <= indj; i++){
+            ans[i] = str[i];
+        }
+ 
+        int k = 0;
+        for (int j = indj + 1; j < n; j++){
+            ans[j] = str[n - k - 1];
+            k += 1;
+        }
+ 
+        for (int i = 0; i < n; i++)
+            cout << ans[i] << " ";
+ 
+    }
+ 
+ 
+ 
+    return 0;
+}
