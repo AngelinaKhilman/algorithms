@@ -1,0 +1,50 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 31%)
+Определим простой цифровой корень (ПЦК) натурального числа N следующим образом. Если N - простое число, то ПЦК(N) = N. Если число однозначное, но не простое (то есть 1, 4, 6, 8 или 9), то ПЦК(N) = 0. В остальных случаях ПЦК(N) = ПЦК(S(N)), где S(N) - сумма цифр числа N.
+
+Входные данные
+Во входном файле INPUT.TXT записано число N (1 ≤ N ≤ 231-1).
+
+Выходные данные
+Запишите в файл OUTPUT.TXT простой цифровой корень числа N.
+
+import math
+ 
+def pc(n):
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return n != 1
+ 
+def summa(n):
+    summ = 0
+    while n > 0:
+        summ += n % 10
+        n = n // 10
+    return summ
+ 
+ 
+def pck(n):
+    if n == 1 or n == 4 or n == 6 or n == 8 or n == 9:
+        return 0
+ 
+    if pc(n):
+        return n
+ 
+    return pck(summa(n))
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+ 
+    ans = pck(n)
+ 
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
