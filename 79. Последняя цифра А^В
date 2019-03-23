@@ -1,0 +1,28 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 21%)
+Требуется написать программу, которая находит цифру, на которую оканчивается число AB.
+
+Входные данные
+Входной файл INPUT.TXT состоит из единственной строки, содержащей два целых числа A и B, разделенных пробелом (1 ≤ A,B ≤ 10000).
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести цифру, на которую оканчивается AB.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n, m = abs(int(line[0])), abs(int(line[1]))
+    n = n % 10
+    ans = int(n)
+    m = m - 1
+    for i in range(m):
+        ans = ans * n
+        ans = ans % 10
+ 
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
