@@ -1,0 +1,68 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 40%)
+Змейка Требуется заполнить змейкой квадратную матрицу так, как показано на рисунке справа: заполнение происходит с единицы из левого верхнего угла и заканчивается в правом нижнем числом N2, где N – порядок матрицы.
+
+Входные данные
+Во входном файле INPUT.TXT задано натуральное число N – размер квадратной матрицы (N ≤ 100).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите матрицу, заполненную числами от 1 до N2 змейкой, при этом между числами может быть любое количество пробелов.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    for i in range(n):
+        b = []
+        for j in range(n):
+            b.append(0)
+        a.append(b)
+    k = 1
+    a[0][0] = k
+    a[n - 1][n - 1] = n ** 2
+    l = 1
+    while True:
+        x, y = 0, 0
+        k += 1
+        x = x + l
+        if k == n * n:
+            break
+        while x >= n:
+            x -= 1
+            y += 1
+        while x >= 0 and y < n:
+            a[x][y] = k
+            x -= 1
+            y += 1
+            k += 1
+        l = l + 1
+        x = 0
+        y = l
+        while y >= n:
+            x += 1
+            y -= 1
+        if k == n * n:
+            break
+        while x < n and y >= 0:
+            a[x][y] = k
+            x += 1
+            y -= 1
+            k += 1
+        l = l + 1
+        k -= 1
+        if k == n * n:
+            break
+ 
+    for i in range(n):
+        print(a[i])
+ 
+        output_file.write(str(' '.join([str(x) for x in a[i]])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
