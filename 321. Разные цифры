@@ -1,0 +1,46 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Требуется написать программу, определяющую, в каких системах счисления с основаниями от 2 до 36 это число не содержит одинаковых цифр.
+
+Входные данные
+Входной файл INPUT.TXT содержит одно целое число N (1 ≤ N ≤ 109), записанное в десятичной системе счисления.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать основания систем счисления в порядке возрастания, разделенные одним пробелом.
+
+def cb(num, to_base = 10, from_base = 10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return cb(n // to_base, to_base) + alphabet[n % to_base]
+ 
+def zif(n):
+    k = str(n)
+    arr = list(k)
+    if len(arr) == len(set(arr)):
+        return False
+    return True
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    for i in range(2, 37):
+        l = cb(n, i, 10)
+        print(l)
+        if zif(l) == False:
+            a.append(i)
+    a.sort()
+    output_file.write(str(' '.join([str(x) for x in a])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
