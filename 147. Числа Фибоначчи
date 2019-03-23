@@ -1,0 +1,29 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 16%)
+Последовательностью Фибоначчи называется последовательность чисел a0, a1, ..., an, ..., где
+a0 = 0, a1 = 1, ak = ak-1 + ak-2 (k > 1).
+
+Требуется найти N-е число Фибоначчи.
+
+Входные данные
+Во входном файле INPUT.TXT записано целое число N (0 ≤ N ≤ 30).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите N-е число Фибоначчи.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    n = int(input_file.readline())
+    a = [0,1]
+ 
+ 
+    for i in range(2,n+1):
+        a.append(a[i-2] + a[i-1])
+    
+    output_file.write(str(a[n]) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
