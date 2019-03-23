@@ -1,0 +1,24 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 40%)
+Даны два целых числа A и B. Требуется найти их целую часть от их частного.
+
+Входные данные
+Во входном файле INPUT.TXT записаны целые числа A и B по одному в строке (0 ≤ A ≤ 10100, 0 < B ≤ 10000).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите единственное число без лидирующих нулей: A div B.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n= abs(int(line[0]))
+    line = input_file.readline().split(' ')
+    m = abs(int(line[0]))
+    ans = n // m
+    print(ans)
+  
+    output_file.write(str(ans) + "\n")
+  
+  
+if __name__ == "__main__":
+    main()
