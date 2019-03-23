@@ -1,0 +1,33 @@
+Время: 1 сек. Память: 16 Мб Сложность: 45%)
+Факториалом натурального числа K называется произведение K!=1×2×3×…×K.
+
+Требуется написать программу, которая по заданному числу N вычислит сумму 1!+2!+…+N! .
+
+Входные данные
+Входной файл INPUT.TXT содержит одно натуральное число N (N ≤ 200).
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать все десятичные знаки искомой суммы.
+
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    f = 1
+    summ = 0
+    j = 1
+    for i in range(1, n + 1):
+        f = f * i
+        summ = summ + f
+ 
+    print(summ)
+    output_file.write(str(summ) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
