@@ -1,0 +1,49 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 16%)
+Вова купил билет в трамвае 13-го маршрута и сразу посчитал суммы первых трёх цифр и последних трёх цифр номера билета (номер у билета шестизначный). Оказалось, что суммы отличаются ровно на единицу. «Я в одном шаге от счастья», — подумал Вова, — «или предыдущий или следующий билет точно счастливый». Прав ли он?
+
+Входные данные
+Входной файл INPUT.TXT содержит в первой строке число K – количество тестов. В следующих K строках записаны номера билетов. Количество тестов не больше 10. Номер состоит ровно из шести цифр, среди которых могут быть и нули. Гарантируется, что Вова умеет считать, то есть суммы первых трех цифр и последних трех цифр отличаются ровно на единицу.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать K строк, в каждой из которых для соответствующего теста следует указать "Yes", если Вова прав, и "No", если нет.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    for i in range(n):
+        line = input_file.readline().split()
+        m = str(line[0])
+        mn = str(int(m) - 1)
+        mp = str(int(m) + 1)
+        if len(m) < 6:
+            while len(m) != 6:
+                m = '0' + m
+        if len(mn) < 6:
+            while len(mn) != 6:
+                mn = '0' + mn
+        if len(mp) < 6:
+            while len(mp) != 6:
+                mp = '0' + mp
+        arr = list(m)
+        arrn = list(mn)
+        arrp = list(mp)
+        print(arrp)
+        summ1 = int(arr[0]) + int(arr[1]) + int(arr[2])
+        summ2 = int(arr[3]) + int(arr[4]) + int(arr[5])
+        summ1n = int(arrn[0]) + int(arrn[1]) + int(arrn[2])
+        summ2n = int(arrn[3]) + int(arrn[4]) + int(arrn[5])
+        summ1p = int(arrp[0]) + int(arrp[1]) + int(arrp[2])
+        summ2p = int(arrp[3]) + int(arrp[4]) + int(arrp[5])
+        if abs(summ1 - summ2) == 1 and (summ1n - summ2n == 0 or summ1p - summ2p == 0):
+            ans = "Yes"
+        else:
+            ans = "No"
+        output_file.write(str(ans) + "\n")
+  
+  
+  
+if __name__ == "__main__":
+    main()
