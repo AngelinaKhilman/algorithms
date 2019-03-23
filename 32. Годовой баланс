@@ -1,0 +1,117 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 35%)
+В конторе «Рога и Копыта» подходит время подведения годового баланса. В бухгалтерию поступили сведения о том, что, согласно документам, суммарный расход составил а рублей, a суммарный приход – b рублей. Поскольку с реальным положением дел эти цифры все равно не имеют ничего общего, бухгалтер решил реализовать следующую свою идею. Как известно, при наборе чисел на компьютере люди часто вводят цифры в неправильном порядке. Поэтому бухгалтер хочет найти такой способ переставить цифры в числах a и b, чтобы в результате разность a-b (и, соответственно, количество денег, которые он положит к себе в карман), была максимальна, а в случае можно будет сослаться на ошибку секретаря. При этом нельзя забывать о знаке чисел и о том, что ноль не может быть первой цифрой числа, отличного от ноля. Напишите программу, которая поможет бухгалтеру.
+
+Входные данные
+Входной файл INPUT.TXT содержит два целых числа a и b (-109 < a,b < 109).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно целое число – наибольшую разность чисел, первое из которых может быть получено перестановкой цифр a, а второе – перестановкой цифр b.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = str(line[0])
+    line = input_file.readline().split()
+    m = str(line[0])
+    if int(n) >= 0 and int(m) >= 0:
+        n1 = list(n)
+        n1.sort()
+        n1.reverse()
+        ans1 = ""
+        for i in range(len(n1)):
+            ans1 += n1[i]
+        print(ans1)
+        m1 = list(m)
+        m1.sort()
+        print(m1)
+        count = m1.count('0')
+        for i in range(count):
+            m1.remove('0')
+        for i in range(count):
+            m1.insert(1, '0')
+        print(m1)
+        ans2 = ""
+        for i in range(len(m1)):
+            ans2 += m1[i]
+        print(ans2)
+        ans = int(ans1) - int(ans2)
+        print(ans)
+ 
+    if int(n) >= 0 and int(m) < 0:
+        n1 = list(n)
+        n1.sort()
+        n1.reverse()
+        ans1 = ""
+        for i in range(len(n1)):
+            ans1 += n1[i]
+        m1 = list(str(abs(int(m))))
+        m1.sort()
+        m1.reverse()
+        print(m1)
+        ans2 = ""
+        for i in range(len(m1)):
+            ans2 += m1[i]
+        ans = int(ans1) + int(ans2)
+        print(ans)
+ 
+    if int(n) < 0 and int(m) >= 0:
+        n1 = list(str(abs(int(n))))
+        n1.sort()
+        count = n1.count('0')
+        for i in range(count):
+            n1.remove('0')
+        for i in range(count):
+            n1.insert(1, '0')
+        print(n1)
+        ans1 = ""
+        for i in range(len(n1)):
+            ans1 += n1[i]
+ 
+        m1 = list(m)
+        m1.sort()
+        print(m1)
+        count = m1.count('0')
+        for i in range(count):
+            m1.remove('0')
+        for i in range(count):
+            m1.insert(1, '0')
+        print(m1)
+        ans2 = ""
+        for i in range(len(m1)):
+            ans2 += m1[i]
+        ans = -int(ans1) - int(ans2)
+        print(ans)
+ 
+    if int(n) < 0 and int(m) < 0:
+        n1 = list(str(abs(int(n))))
+        n1.sort()
+        count = n1.count('0')
+        for i in range(count):
+            n1.remove('0')
+        for i in range(count):
+            n1.insert(1, '0')
+        print(n1)
+        ans1 = ""
+        for i in range(len(n1)):
+            ans1 += n1[i]
+        m1 = list(str(abs(int(m))))
+        m1.sort()
+        m1.reverse()
+        print(m1)
+        ans2 = ""
+        for i in range(len(m1)):
+            ans2 += m1[i]
+        ans = -int(ans1) + int(ans2)
+        print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
