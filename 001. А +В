@@ -1,0 +1,25 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 2%)
+Требуется сложить два целых числа А и В.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записаны два натуральных числа через пробел. Значения чисел не превышают 109.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести одно целое число — сумму чисел А и В.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, f = int(line[0]), int(line[1])
+ 
+    ans = n + f
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
