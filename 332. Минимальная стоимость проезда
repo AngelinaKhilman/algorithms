@@ -1,0 +1,73 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 40%)
+На прямой ветке железной дороги расположено несколько станций. Задана стоимость проезда между любыми двумя станциями.
+
+Требуется написать программу нахождения минимальной стоимости проезда между крайними станциями. Двигаться по железной дороге можно только в одном направлении (от станции с меньшим номером до станции с большим номером.).
+
+Входные данные
+Входной файл INPUT.TXT содержит в первой строке натуральное число N, не большее 250. Всего на дороге расположено N+1 станций, пронумерованных от 0 до N. В следующих строках записано N(N+1)/2 чисел, задающих стоимости проезда между станциями: сначала стоимость проезда от станции 0 до станций 1, 2, 3, …, N, затем от станции 1 до станций 2, 3, …, N, …, от станции N-1 до станции N. Все стоимости проезда – неотрицательные целые числа, не превосходящие 10000.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать одно число – минимальную стоимость проезда от станции 0 до станции N с возможными пересадками.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0]) + 1
+    a = []
+    for i in range(n):
+        b = []
+        for j in range(n):
+            if i == j:
+                b.append(0)
+            else:
+                b.append(10 ** 9)
+        a.append(b)
+ 
+    print(a)
+ 
+    for i in range(n - 1):
+        line = input_file.readline().split()
+        for j in range(i + 1, n):
+            a[i][j] = int(line[j - i - 1])
+ 
+    print(a)
+ 
+    visited = []
+    distances = []
+ 
+    for i in range(n):
+        distances.append(pow(10, 9))
+ 
+    for i in range(n):
+        visited.append(0)
+ 
+    distances[0] = 0
+ 
+    for t in range(n):
+ 
+        qwe = pow(10, 9)
+        k = 0
+ 
+        for i in range(n):
+            if distances[i] < qwe and visited[i] < 1:
+                qwe = distances[i]
+                k = i
+ 
+        if distances[k] == pow(10, 9):
+            break
+ 
+        print(k)
+        visited[k] = 1
+ 
+        for j in range(n):
+            if a[k][j] + distances[k] < distances[j]:
+                distances[j] = a[k][j] + distances[k]
+ 
+    print(distances[n - 1])
+    ans = distances[n - 1]
+ 
+    output_file.write(str(distances[n - 1]) + "\n")
+ 
+if __name__ == "__main__":
+    main()
