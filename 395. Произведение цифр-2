@@ -1,0 +1,31 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Найдите количество чисел из отрезка [L, R], которые делятся на произведение своих цифр.
+
+Входные данные
+Входной файл INPUT.TXT содержит два целых числа L и R. (1 ≤ L ≤ R ≤ 109, |R-L| ≤ 105)
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    count = 0
+    for i in range(n, m + 1):
+        strn = str(i)
+ 
+        pr = 1
+        for j in range(len(strn)):
+            pr = pr * int(strn[j])
+        if pr != 0:
+            if i % pr == 0:
+                count += 1
+    print(count)
+ 
+    output_file.write(str(count) + '\n')
+ 
+ 
+if __name__ == "__main__":
+    main()
