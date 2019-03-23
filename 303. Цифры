@@ -1,0 +1,47 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Составить программу, удаляющую одну цифру из N-значного числа, такую, чтобы плюс-минус сумма была наибольшей. Плюс-минус сумма – это сумма с чередованием цифр числа с разными знаками: для числа 764 это +7-6+4. Если удалить цифру 7, то будет +6-4=2, если удалить цифру 6, то будет +7-4=3, если удалить цифру 4, то будет +7-6=1. При этом видно, что максимум достигается при удалении средней цифры 6 и равен 3.
+
+Входные данные
+Во входном файле INPUT.TXT записано натуральное N-значное число (2 ≤ N ≤ 50).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите значение наибольшей суммы.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = list(line[0])
+    print(n)
+    max = -(10 ** 9)
+    for i in range(len(n)):
+        sp = 0
+        sm = 0
+        arr = []
+        for k in range(len(n)):
+            if k != i:
+                arr.append(int(n[k]))
+ 
+        print(arr)
+        for j in range(len(n) - 1):
+            if j % 2 == 0:
+                sp += int(arr[j])
+            else:
+                sm += int(arr[j])
+        if sp - sm > max:
+            max = sp - sm
+ 
+ 
+    print(max)
+ 
+ 
+ 
+    output_file.write(str(max) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
