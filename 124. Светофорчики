@@ -1,0 +1,44 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 25%)
+В подземелье M тоннелей и N перекрестков, каждый тоннель соединяет какие-то два перекрестка. Мышиный король решил поставить по светофору в каждом тоннеле перед каждым перекрестком. Напишите программу, которая посчитает, сколько светофоров должно быть установлено на каждом из перекрестков. Перекрестки пронумерованы числами от 1 до N.
+
+Входные данные
+Во входном файле INPUT.TXT записано два числа N и M (0 < N ≤ 100, 0 ≤ M ≤ N*(N-1)/2). В следующих M строках записаны по два числа i и j (1 ≤ i,j ≤ N), которые означают, что перекрестки i и j соединены тоннелем. Можно считать, что любые два перекрестка соединены не более, чем одним тоннелем. Нет тоннелей от перекрестка i до него самого.
+
+Выходные данные
+В выходной файл OUTPUT.TXT вывести N чисел: k-ое число означает количество светофоров на k-ом перекрестке.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    first_line = input_file.readline().split()
+    n, m = int(first_line[0]), int(first_line[1])
+    count = 0
+ 
+    b=[]
+    c = []
+    a=[]
+    for i in range(n):
+        a.append(0)
+        b.append(i+1)
+ 
+    for i in range(m):
+        current_line = input_file.readline().split()
+        u, v = int(current_line[0]), int(current_line[1])
+        c.append(u)
+        c.append(v)
+ 
+    for i in range(n):
+        for j in range(len(c)):
+            if c[j]==b[i]:
+                a[i] = a[i]+1
+ 
+    ans = ' '.join([str(x) for x in a])
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
