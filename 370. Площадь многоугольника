@@ -1,0 +1,43 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 48%)
+Многоугольник на плоскости задан целочисленными координатами своих N вершин в декартовой системе координат. Требуется найти площадь многоугольника. Стороны многоугольника не соприкасаются (за исключением соседних - в вершинах) и не пересекаются.
+
+Входные данные
+В первой строке входного файла INPUT.TXT находится число N. В следующих N строках находятся пары чисел (Xi,Yi) - координаты точек. Если соединить точки в данном порядке, а также первую и последнюю точки, получится заданный многоугольник. (3 ≤ N ≤ 50 000, -20 000 ≤ Xi,Yi ≤ 20 000)
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно число - площадь многоугольника. Его следует округлить до ближайшего числа с одной цифрой после запятой.
+
+import math
+def school_round(a_in,n_in):
+    if (a_in * 10 ** (n_in + 1)) % 10 == 5:
+        return round(a_in + 1 / 10 ** (n_in + 1), n_in)
+    else:
+        return round(a_in, n_in)
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n = int(line[0])
+    a = []
+    b = []
+    for i in range(n):
+        line = input_file.readline().split(' ')
+        a.append(int(line[0]))
+        b.append(int(line[1]))
+ 
+    a.append(a[0])
+    b.append(b[0])
+    print(a, b)
+    s1, s2 = 0, 0
+    for i in range(len(a) - 1):
+        s1 += a[i] * b[i + 1]
+    for i in range(len(a) - 1):
+        s2 += b[i] * a[i + 1]
+    print(s1, s2)
+    s = (s1 - s2) / 2
+    s = abs(school_round(s, 1))
+    print(s)
+    output_file.write(str(s) + '\n')
+ 
+if __name__ == "__main__":
+    main()
