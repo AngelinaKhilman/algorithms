@@ -1,0 +1,32 @@
+Время: 1 сек. Память: 16 Мб Сложность: 42%)
+Концы отрезка на плоскости имеют целочисленные координаты.
+
+Требуется написать программу, которая вычислит, сколько всего точек с целочисленными координатами принадлежат этому отрезку.
+
+Входные данные
+Входной файл INPUT.TXT содержит четыре числа – координаты концов отрезка (x1, y1) и (x2, y2). Каждая из координат не превышает по абсолютной величине значения 109.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать одно число – количество точек на заданном отрезке, имеющих целочисленные координаты.
+
+import math
+def onOneLine(x1, x2, x3, y1, y2, y3):
+    if (x2 - x1) * (y3 - y1) == (y2 - y1) * (x3 - x1):
+        return True
+    else:
+        return False
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    x1, y1, x2, y2 = int(line[0]), int(line[1]), int(line[2]), int(line[3])
+    ans = math.gcd(abs(x1 - x2), abs(y1 - y2)) + 1
+ 
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
