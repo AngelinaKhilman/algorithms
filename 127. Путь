@@ -1,0 +1,77 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 40%)
+В неориентированном графе требуется найти длину кратчайшего пути между двумя вершинами.
+
+Входные данные
+Во входном файле INPUT.TXT записано сначала число N - количество вершин в графе (1 ≤ N ≤ 100). Затем записана матрица смежности (0 обозначает отсутствие ребра, 1 - наличие ребра). Затем записаны номера двух вершин - начальной и конечной.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите длину кратчайшего пути. Если пути не существует, выведите одно число -1.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+ 
+    a = []
+    visited = []
+    distances = []
+    for i in range(n):
+        line = input_file.readline().split()
+        b = []
+        for j in range(n):
+            b.append(int(line[j]))
+            if b[j] == 0:
+                b[j] = pow(10, 9)
+        a.append(b)
+        print(a[i])
+    line = input_file.readline().split()
+    s, f = int(line[0]), int(line[1])
+ 
+    for i in range(n):
+        distances.append(pow(10, 9))
+ 
+    for i in range(n):
+        visited.append(0)
+ 
+    distances[s - 1] = 0
+ 
+    for t in range(n):
+ 
+        qwe = pow(10, 9)
+        k = 0
+ 
+        for i in range(n):
+            if distances[i] < qwe and visited[i] < 1:
+                qwe = distances[i]
+                k = i
+ 
+        if distances[k] == pow(10, 9):
+            break
+ 
+        print(k)
+        visited[k] = 1
+ 
+        for j in range(n):
+            if a[k][j] + distances[k] < distances[j]:
+                distances[j] = a[k][j] + distances[k]
+ 
+    print(distances)
+ 
+    if distances[f - 1] == 10 ** 9:
+        distances[f - 1] = -1
+ 
+    for i in range(n):
+        if distances[i] == pow(10,9):
+            distances[i] = 0
+ 
+    print(distances)
+ 
+    output_file.write(str(distances[f - 1]) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
