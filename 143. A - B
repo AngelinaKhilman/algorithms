@@ -1,0 +1,22 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 44%)
+Требуется найти разность между неотрицательными числами А и В.
+
+Входные данные
+Во входном файле INPUT.TXT в двух строках записаны два неотрицательных целых числа A и B, не превышающие 101000.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите значение A-B.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n = int(line[0])
+    line = input_file.readline().split(' ')
+    m = int(line[0])
+    ans = n - m
+    output_file.write(str(ans) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
