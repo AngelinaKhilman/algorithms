@@ -1,0 +1,52 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 23%)
+Требуется выполнить сортировку временных моментов, заданных в часах, минутах и секундах.
+
+Входные данные
+Во входном файле INPUT.TXT в первой строке записано число N (1 ≤ N ≤ 100), а в последующих N строках N моментов времени. Каждый момент времени задается 3 целыми числами - часы (от 0 до 23), минуты (от 0 до 59) и секунды (от 0 до 59).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите моменты времени, упорядоченные в порядке неубывания без ведущих нулей.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n = int(line[0])
+    a = []
+    b = []
+    c = []
+    for i in range(n):
+        line = input_file.readline().split(' ')
+        a.append(int(line[0]))
+        b.append(int(line[1]))
+        c.append(int(line[2]))
+    print(a)
+    print(b)
+    print(c)
+    for i in range(n):
+        for j in range(n - 1, i, -1):
+            if a[j] < a[j - 1]:
+                a[j], a[j - 1] = a[j - 1], a[j]
+                b[j], b[j - 1] = b[j - 1], b[j]
+                c[j], c[j - 1] = c[j - 1], c[j]
+            if a[j] == a[j - 1]:
+                if b[j] < b[j - 1]:
+                    a[j], a[j - 1] = a[j - 1], a[j]
+                    b[j], b[j - 1] = b[j - 1], b[j]
+                    c[j], c[j - 1] = c[j - 1], c[j]
+                if b[j] == b[j - 1]:
+                    if c[j] < c[j - 1]:
+                        a[j], a[j - 1] = a[j - 1], a[j]
+                        b[j], b[j - 1] = b[j - 1], b[j]
+                        c[j], c[j - 1] = c[j - 1], c[j]
+ 
+    print(a)
+    print(b)
+    print(c)
+    for i in range(n):
+        output_file.write(str(a[i]) + " " + str(b[i]) + " " + str(c[i]) + "\n")
+ 
+ 
+if __name__ == "__main__":
+    main()
