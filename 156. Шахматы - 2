@@ -1,0 +1,35 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 46%)
+Требуется найти число способов расставить на шахматной доске N×N K ладей так, чтобы они не били друг друга. Все ладьи считаются одинаковыми.
+
+Входные данные
+Во входном файле INPUT.TXT записаны натуральные числа N и K (N, K ≤ 8).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно целое число – ответ на задачу.
+
+import math
+def cnk(n ,k):
+    return (math.factorial(n) / (math.factorial(k) * math.factorial(n - k)))
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, k = int(line[0]), int(line[1])
+    if k > n:
+        ans = 0
+    else:
+        ans = cnk(n, k)
+     
+        for i in range(k):
+            ans *= (n - i)
+    print(ans)
+ 
+     
+    output_file.write(str(int(ans)) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
