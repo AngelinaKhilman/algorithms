@@ -1,0 +1,55 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 50%)
+Пусть х — натуральное число. Назовем у его делителем, если 1 ≤ у ≤ х и остаток от деления х на у равен нулю.
+
+Задано число х. Найдите количество его делителей.
+
+Входные данные
+Входной файл INPUT.TXT содержит заданное число x (1 ≤ x ≤ 1018). Все простые делители числа x не превосходят 1000.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+bool pr(int x){
+    for (int i = 2; i <= sqrt(x); i++)
+        if (x % i == 0)
+            return false;
+    return true;
+}
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    long long n;
+    cin >> n;
+    vector<int> v;
+    vector<int> vv;
+    vv.resize(1000);
+    v.push_back(2);
+    for (int i = 3; i < 1000; i++){
+        if (pr(i))
+            v.push_back(i);
+    }
+    int k = 0;
+    while(k < v.size()){
+        if (n % v[k] == 0){
+            vv[v[k] - 1] += 1;
+            n = n / v[k];
+        }
+        else{
+            k = k + 1;
+        }
+ 
+    }
+    int ans = 1;
+    for (size_t i = 0; i < vv.size(); i++)
+        if (vv[i] != 0)
+            ans *= (vv[i] + 1);
+    cout << ans << endl;
+ 
+    return 0;
+}
