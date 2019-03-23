@@ -1,0 +1,63 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 49%)
+В стране N городов, некоторые из которых соединены между собой дорогами. Для того, чтобы проехать по одной дороге требуется один бак бензина. В каждом городе бак бензина имеет разную стоимость. Вам требуется добраться из первого города в N-ый, потратив как можно меньшее количество денег.
+
+Входные данные
+Во входном файле INPUT.TXT записано сначала число N (1 ≤ N ≤ 100), затем идет N чисел, i-ое из которых задает стоимость бензина в i-ом городе (все числа целые из диапазона от 0 до 100). Далее идет число M - количество дорог в стране, далее идет описание самих дорог. Каждая дорога задается двумя числами - номерами городов, которые она соединяет. Все дороги двухсторонние (то есть по ним можно ездить как в одну, так и в другую сторону); между двумя городами всегда существует не более одной дороги; не существует дорог, ведущих из города в себя.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно число - суммарную стоимость маршрута или -1, если добраться невозможно.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    line = input_file.readline().split()
+    a = []
+    comp = 0
+    for i in range(n):
+        a.append(int(line[i]))
+    b = []
+    for i in range(n):
+        c = []
+        for j in range(n):
+            c.append(10 ** 9)
+        b.append(c)
+    print(b)
+    line = input_file.readline().split()
+    m = int(line[0])
+    print(m)
+    for i in range(m):
+        line = input_file.readline().split()
+        b[int(line[0]) - 1][int(line[1]) - 1] = a[int(line[0]) - 1]
+        b[int(line[1]) - 1][int(line[0]) - 1] = a[int(line[1]) - 1]
+    print(b)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if b[i][k] < 10 ** 9 and b[k][j] < 10 ** 9:
+                    b[i][j] = min(b[i][j], b[i][k] + b[k][j])
+    for i in range(n):
+        for j in range(n):
+            if b[i][j] > comp and b[i][j] != 10 ** 9:
+                comp = b[i][j]
+ 
+    print(comp)
+    for i in range(len(b)):
+        for j in range(len(b[i])):
+            if i == j:
+                b[i][j] = 0
+    for i in range(n):
+        print(b[i])
+    ans = b[0][n - 1]
+    if ans == 1000000000:
+        ans = -1
+    print(ans)
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
