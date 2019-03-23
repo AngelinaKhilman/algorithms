@@ -1,0 +1,38 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 38%)
+Дана числовая последовательность, требуется найти длину наибольшей возрастающей подпоследовательности.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записано число N - длина последовательности (1 ≤ N ≤ 1000). Во второй строке записана сама последовательность (через пробел). Числа последовательности - целые числа, не превосходящие 10000 по модулю.
+
+Выходные данные
+В выходной файл OUTPUT.TXT требуется вывести наибольшую длину возрастающей подпоследовательности.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+ 
+    a = int(input_file.readline())
+    print(a)
+    b = input_file.readline().split()
+ 
+    c =[]
+ 
+    for i in range(a):
+        c.append(1)
+        for j in range(i):
+            if int(b[j]) < int(b[i]):
+                c[i] = max(c[i], 1 + c[j])
+ 
+    ans = c[0];
+    for i in range(a):
+        ans = max(ans, c[i]);
+ 
+  
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
