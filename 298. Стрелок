@@ -1,0 +1,52 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Стрелок стоит в центре стрельбища. На стрельбище несколько мишеней. Пули стрелка пробивают мишени насквозь, не теряя скорости, и могут поразить все мишени, стоящие на одной линии.
+
+Будем считать, что стрелок стоит в центре начала координат. Известны координаты всех мишеней (для простоты будем считать их геометрические размеры пренебрежимо малыми). Определите минимальное число выстрелов, необходимых стрелку для поражения всех мишеней.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит натуральное число N – количество мишеней (N ≤ 20). Далее идет N строк с информацией о координатах каждой мишени, при этом в каждой строке указывается два целых числа через пробел X и Y (-10 ≤ X, Y ≤ 10).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно целое число – наименьшее количество выстрелов, необходимых для поражения всех мишеней.
+
+import math
+def onOneLine (x1,x2,x3,y1,y2,y3):
+     if (x2 - x1) * (y3 - y1) == (y2 - y1) * (x3 - x1):
+        return True
+     else:
+         return False
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    x = []
+    y = []
+    res = set()
+    n = int(line[0])
+    for i in range(n):
+        line = input_file.readline().split()
+        x.append(int(line[0]))
+        y.append(int(line[1]))
+    flag = False
+    res.add((x[0], y[0]))
+ 
+    for i in range(1, n):
+        for j in res:
+            if onOneLine(0, x[i], j[0], 0, y[i], j[1]) and ((x[i] <= 0 and j[0] <= 0) and (y[i] <= 0 and j[1] <= 0) or (x[i] >= 0 and j[0] >= 0) and (y[i] >= 0 and j[1] >= 0) or (x[i] <= 0 and j[0] <= 0) and (y[i] >= 0 and j[1] >= 0) or (x[i] >= 0 and j[0] >= 0) and (y[i] <= 0 and j[1] <= 0)):
+                flag = True
+                break
+ 
+        if flag == False:
+            res.add((x[i], y[i]))
+        flag = False
+    print(res)
+    ans = len(res)
+    print(ans)
+    print(onOneLine(0, 0, 0, 1, 2, 3))
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
