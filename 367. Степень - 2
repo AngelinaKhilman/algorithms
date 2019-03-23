@@ -1,0 +1,20 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 45%)
+Для натуральных чисел A и N требуется вычислить значение AN.
+
+Входные данные
+Входной файл INPUT.TXT в первой строке содержит числа A и N, разделенные пробелом. (1 ≤ A ≤ 9, 1 ≤ N ≤ 7000)
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно число – результат возведения в степень, без лидирующих нулей.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split( )
+    a, b = int(line[0]), int(line[1])
+    ans = a ** b
+    print(ans)
+    output_file.write(str(ans) + '\n')
+ 
+if __name__ == "__main__":
+    main()
