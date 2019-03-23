@@ -1,0 +1,38 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 34%)
+При обработке различной информации часто приходится оперировать с данными о датах. В этой задаче вам нужно составить программу, которая сможет вывести число, месяц и день недели, которые наступят через K дней, начиная с первого января 2008 года. Напомним, что это был вторник.
+
+Входные данные
+Входной файл INPUT.TXT содержит одно целое число K (0 ≤ K ≤ 1000) - количество дней, после первого января, через которое наступит (или наступила) интересующая дата.
+
+Выходные данные
+В выходной файл OUTPUT.TXT ваша программа должна записать, какие день недели, число и месяц наступят по прошествии заданного времени. Результаты проверяются автоматически, поэтому вам следует придерживаться формата, показанного в примерах.
+
+import datetime
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    n = int(line[0])
+    d = datetime.date(2008, 1, 1)
+    a = datetime.timedelta(n)
+    ans = d + a
+    print(ans.day, ans.month)
+    day = str(ans.day)
+    month = str(ans.month)
+    if len(day) < 2:
+        day = "0" + day
+    if len(month) < 2:
+        month = "0" + month
+    print(day, month)
+    l = ans.strftime('%A')
+    print(l)
+    output_file.write(str(l) + "," + " " + str(day) + "." + str(month) + '\n')
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
