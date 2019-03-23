@@ -1,0 +1,44 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 52%)
+Последовательностью Фибоначчи называется последовательность чисел F0 = 0, F1 = 1, … , Fk = Fk-1 + Fk-2 (k > 1).
+
+Требуется найти наибольший общий делитель двух чисел Фибоначчи.
+
+Входные данные
+Во входном файле INPUT.TXT записаны два целых числа i и j (1 ≤ i, j ≤ 106).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите остаток от деления НОД чисел Fi и Fj на 109.
+
+import math
+def f(n):
+    if n == 1:
+        return 1
+    elif n == 2:
+        return 1
+    else:
+        f1 = 1
+        f2 = 1
+        for i in range(2, n):
+            f = (f1 + f2) % (10 ** 9) 
+            f1 = f2
+            f2 = f
+        return f 
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    ans = (math.gcd(n, m))
+    print(ans)
+    answ = f(ans)
+    print(answ)
+    output_file.write(str(answ) + '\n')
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
