@@ -1,0 +1,37 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 19%)
+Требуется написать программу, определяющую наименьшее общее кратное (НОК) чисел a и b.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записаны два натуральных числа А и В через пробел, не превышающих 46340.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести одно целое число — НОК чисел А и В.
+
+
+def nok(a,b):
+    a1 = a
+    b1 = b
+    while a != 0 and b != 0:
+        if a > b:
+            a %= b
+        else:
+            b %= a
+ 
+    x = a + b
+    y = a1 * b1 // x
+    return(y)
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a, b = int(line[0]), int(line[1])
+    ans = nok(a,b)
+    print(ans)
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+if __name__ == "__main__":
+    main()
