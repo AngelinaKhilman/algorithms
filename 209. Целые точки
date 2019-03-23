@@ -1,0 +1,59 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 64%)
+Многоугольник (не обязательно выпуклый) на плоскости задан координатами своих вершин. Требуется подсчитать количество точек с целочисленными координатами, лежащих внутри него (но не на его границе).
+
+Входные данные
+В первой строке входного файла INPUT.TXT содержится N (3≤N≤103) – число вершин многоугольника. В последующих N строках идут координаты (Xi, Yi) вершин многоугольника в порядке обхода по часовой стрелке. Xi и Yi - целые числа, по модулю не превосходящие 106.
+
+Выходные данные
+Ваша программа должна вывести в выходной файл OUTPUT.TXT одно целое число - ответ на задачу.
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+ 
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n;
+    cin >> n;
+    int64_t a[n + 1];
+    int64_t b[n + 1];
+    long long ans = 0;
+    int64_t tmpa, tmpb;
+    for (int i = 0; i < n; i++){
+        cin >> a[i];
+         cin >> b[i];
+        if (i == 0)
+        {
+             tmpa = a[i];
+             tmpb = b[i];
+        }
+ 
+    }
+    a[n] = tmpa;
+    b[n] = tmpb;
+ 
+    for (int i = 0; i < n; i++)
+    {
+        ans += __gcd(abs(a[i] - a[i + 1]), abs(b[i] - b[i + 1])) + 1;
+ 
+    }
+    ans = ans - n;
+ 
+    long long s1 = 0;
+    long long s2 = 0;
+    for (int i = 0; i < n; i++){
+        s1 += a[i] * b[i + 1];
+        s2 += b[i] * a[i + 1];
+    }
+    long long s = abs(round((s1 - s2) / 2)) + 1;
+ 
+    long long answer = s - (ans / 2);
+ 
+    cout << answer << endl;
+ 
+    return 0;
+}
