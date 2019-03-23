@@ -1,0 +1,43 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 26%)
+Будем называть число красивым, если сумма его цифр в десятичной системе счисления делится на количество цифр в нем (в десятичной системе счисления).
+
+Необходимо найти N-ое в порядке возрастания красивое число.
+
+Входные данные
+Входной файл INPUT.TXT содержит целое число N. (1 ≤ N ≤ 100 000)
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+def polindrom(s):
+    s = list(s)
+    for i in range(len(s)):
+        s[i] = int(s[i])
+    s_n = sum(list(s))
+    if s_n % len(s) == 0:
+        return False
+    else:
+        return True
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    i = 1
+    while len(a) < n:
+        if i >= 10:
+            s = str(i)
+            if polindrom(s) == False:
+                a.append(i)
+        if i < 10:
+            a.append(i)
+        i += 1
+    ans = a[-1]
+    print(a)
+    print(len(a))
+    print(ans)
+    output_file.write(str(ans) + '\n')
+if __name__ == "__main__":
+    main()
