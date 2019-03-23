@@ -1,0 +1,25 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 30%)
+Необходимо вычислить значение 2n.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записано натуральное число n (0 < n < 1000).
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести значение 2n.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+ 
+    a = int(input_file.readline())
+ 
+    ans = pow(2,a)
+    
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
