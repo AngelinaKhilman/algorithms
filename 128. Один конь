@@ -1,0 +1,57 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 41%)
+На шахматной доске N×N в клетке (x1,y1) стоит голодный шахматный конь. Он хочет попасть в клетку (x2,y2), где растет вкусная шахматная трава. Какое наименьшее количество ходов он должен для этого сделать?
+
+Входные данные
+Входной файл INPUT.TXT содержит пять чисел: N, x1, y1, x2, y2 (5 ≤ N ≤ 20, 1 ≤ x1, y1, x2, y2 ≤ N). Левая верхняя клетка доски имеет координаты (1,1), правая нижняя - (N,N).
+
+Выходные данные
+В выходной файл OUTPUT.TXT необходимо вывести наименьшее число ходов коня.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    line = input_file.readline().split()
+    x1, y1 = int(line[0]) - 1, int(line[1]) - 1
+    line = input_file.readline().split()
+    x2, y2 = int(line[0]) - 1, int(line[1]) - 1
+    e = []
+ 
+    for i in range(n):
+        for j in range(n):
+            if i + 1 < n and j + 2 < n:
+                e.append((i * n + j, (i + 1) * n + (j + 2), 1))
+            if i + 2 < n and j + 1 < n:
+                e.append((i * n + j, (i + 2) * n + (j + 1), 1))
+            if i + 2 < n  and j - 1 >= 0:
+                e.append((i * n + j, (i + 2) * n + (j - 1), 1))
+            if i + 1 < n  and j - 2 >= 0:
+                e.append((i * n + j, (i + 1) * n + (j - 2), 1))
+            if i - 1 >= 0 and j - 2 >= 0:
+                e.append((i * n + j, (i - 1) * n + (j - 2), 1))
+            if i - 2 >= 0 and j - 1 >= 0:
+                e.append((i * n + j, (i - 2) * n + (j - 1), 1))
+            if i - 2 >= 0 and j + 1 < n:
+                e.append((i * n + j, (i - 2) * n + (j + 1), 1))
+            if i - 1 >= 0 and j + 2 < n:
+                e.append((i * n + j, (i - 1) * n + (j + 2), 1))
+    print(e)
+    INF = 10 ** 10
+    d = []
+    for i in range(n ** 2):
+        d.append(INF)
+    d[x1 * n + y1] = 0
+    for i in range(n - 1):
+        for j in range(len(e)):
+            if d[e[j][1]] > d[e[j][0]] + e[j][2] and d[e[j][0]] != INF:
+                d[e[j][1]] = d[e[j][0]] + e[j][2]
+    print(d)
+    ans = d[x2 * n + y2]
+    print(ans)
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+if __name__ == "__main__":
+    main()
