@@ -1,0 +1,45 @@
+(Время: 0,5 сек. Память: 32 Мб Сложность: 28%)
+Необходимо вывести все простые числа от M до N включительно.
+
+Входные данные
+Входной файл INPUT.TXT содержит два натуральных числа M и N, разделенных пробелом (2 ≤ M ≤ N ≤ 106)
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите все простые числа от M до N в порядке возрастания, по одному в строке. Если таковых чисел нет, то следует вывести «Absent».
+
+import math
+def pr(n):
+    if n % 2 == 0 and n != 2:
+        return False
+    if n % 2 == 0 and n == 2:
+        return True
+    i = 3
+    limit = int(math.sqrt(n))
+    while i <= limit:
+        if n % i == 0:
+            return False
+        i += 2
+    return True
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a, b = int(line[0]), int(line[1])
+    arr = []
+    for i in range(a, b + 1):
+        if pr(i) and i != 1:
+            arr.append(i)
+    if len(arr) == 0:
+        ans = "Absent"
+        output_file.write(str(ans) + "\n")
+    else:
+        output_file.write(str(' '.join([str(x) for x in arr])) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
