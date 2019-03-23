@@ -1,0 +1,149 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 29%)
+На шахматной доске 8х8 расположены три фигуры: ферзь, ладья и конь. Требуется определить количество пустых полей доски, которые находятся под боем. Для простоты будем полагать, что фигуры могут «бить» через другие фигуры. Например, в рассмотренной справа ситуации будем считать, что ферзь бьет D5 через ладью.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записаны через пробел координаты расположения трех фигур: ферзя, ладьи и коня соответственно. Каждая координата состоит из одного английского символа (от A до H) и одной цифры (от 1 до 8).
+
+Выходные данные
+В выходной файл OUTPUT.TXT нужно вывести количество пустых полей, которые бьют указанные во входных данных фигуры.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    f, l ,k = str(line[0]), str(line[1]), str(line[2])
+    a = [("A", "1"), ("B", "2"), ("C", "3"), ("D", "4"), ("E", "5"), ("F", "6"), ("G", "7"), ("H", "8")]
+    c = []
+    for i in range(len(a)):
+        if f[0] == a[i][0]:
+            f += a[i][1]
+        if l[0] == a[i][0]:
+            l += a[i][1]
+        if k[0] == a[i][0]:
+            k += a[i][1]
+    print(f, l, k)
+ 
+    for i in range(8):
+        b = []
+        for j in range(8):
+            b.append(0)
+        c.append(b)
+    c[int(f[1]) - 1][int(f[2]) - 1] = 1
+    c[int(l[1]) - 1][int(l[2]) - 1] = 1
+    c[int(k[1]) - 1][int(k[2]) - 1] = 1
+    print(c)
+    k1 = int(l[1])
+    q1 = int(l[2])
+    while k1 <= 8 and q1 <= 8:
+        c[k1 - 1][q1 - 1] = 1
+        q1 += 1
+    k1 = int(l[1])
+    q1 = int(l[2])
+    while k1 > 0 and q1 > 0:
+        c[k1 - 1][q1 - 1] = 1
+        q1 -= 1
+    k1 = int(l[1])
+    q1 = int(l[2])
+    while k1 <= 8 and q1 <= 8:
+        c[k1 - 1][q1 - 1] = 1
+        k1 += 1
+    k1 = int(l[1])
+    q1 = int(l[2])
+    while k1 > 0 and q1 > 0:
+        c[k1 - 1][q1 - 1] = 1
+        k1 -= 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+ 
+ 
+    while k2 <= 8 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        q2 += 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and q2 > 0:
+        c[k2 - 1][q2 - 1] = 1
+        q2 -= 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 <= 8 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        k2 += 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and q2 > 0:
+        c[k2 - 1][q2 - 1] = 1
+        k2 -= 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and k2 <= 8 and q2 > 0 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        k2 += 1
+        q2 -= 1
+ 
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and k2 <= 8 and q2 > 0 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        k2 += 1
+        q2 += 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and k2 <= 8 and q2 > 0 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        k2 -= 1
+        q2 -= 1
+    k2 = int(f[1])
+    q2 = int(f[2])
+    while k2 > 0 and k2 <= 8 and q2 > 0 and q2 <= 8:
+        c[k2 - 1][q2 - 1] = 1
+        k2 -= 1
+        q2 += 1
+    k3 = int(k[1]) - 1
+    q3 = int(k[2]) - 1
+ 
+    if k3 - 2 >= 0 and q3 + 1 < 8:
+        c[k3 - 2][q3 + 1] = 1
+ 
+    if k3 - 1 >= 0 and q3 + 2 < 8:
+        c[k3 - 1][q3 + 2] = 1
+ 
+    if k3 + 1 < 8 and q3 + 2 < 8:
+        c[k3 + 1][q3 + 2] = 1
+ 
+    if k3 + 2 < 8 and q3 + 1 < 8:
+        c[k3 + 2][q3 + 1] = 1
+ 
+    if k3 + 2 < 8 and q3 - 1 >= 0:
+        c[k3 + 2][q3 - 1] = 1
+ 
+    if k3 + 1 < 8 and q3 - 2 >= 0:
+        c[k3 + 1][q3 - 2] = 1
+ 
+    if k3 - 1 >= 0 and q3 - 2 >= 0:
+        c[k3 - 1][q3 - 2] = 1
+ 
+    if k3 - 2 >= 0 and q3 - 1 >= 0:
+        c[k3 - 2][q3 - 1] = 1
+ 
+    count = -3
+    for i in range(8):
+        for j in range(8):
+            if c[i][j] == 1:
+                count += 1
+    print(count)
+ 
+ 
+    for i in range(8):
+        print(c[i])
+ 
+ 
+    output_file.write(str(count) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
