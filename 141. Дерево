@@ -1,0 +1,64 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 42%)
+Неориентированный граф без петель и кратных ребер задан матрицей смежности. Требуется определить, является ли этот граф деревом.
+
+Входные данные
+Во входном файле INPUT.TXT записано сначала число N - количество вершин графа (от 1 до 100). Далее записана матрица смежности размером N×N, в которой 1 обозначает наличие ребра, 0 - его отсутствие. Матрица симметрична относительно главной диагонали.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите сообщение YES, если граф является деревом, и NO в противном случае.
+
+
+import math
+ 
+used = []
+path = []
+ 
+def dfs(v, alist):
+    used[v] = 1
+    path.append(v + 1)
+    for i in range(len(alist)):
+        if used[i] == 0 and alist[v][i] == 1:
+            dfs(i, alist)
+            print(path)
+    return (len(path) - 1)
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    for i in range(n):
+        used.append(0)
+    a = []
+    count = 0
+    for i in range(n):
+        line = input_file.readline().split()
+        b = []
+        for j in range(n):
+            b.append(int(line[j]))
+            if int(line[j]) == 1:
+                count += 1
+        a.append(b)
+     
+    if n >= 2:
+        number = dfs(1, a)
+        flag = True
+        for i in range(len(used)):
+            if used[i] == 0:
+                flag = False
+        ans = count // 2
+        if flag == True and (n - ans == 1):
+            answ = "YES"
+        else:
+            answ = "NO"
+    else:
+        answ = "YES"
+ 
+ 
+    output_file.write(str(answ) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
