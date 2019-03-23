@@ -1,0 +1,70 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 65%)
+Дан ориентированный взвешенный граф. По его матрице смежности нужно для каждой пары вершин определить: существует кратчайший путь между ними или нет.
+
+Кратчайший путь может не существовать по двум причинам: либо нет ни одного пути, либо есть путь сколь угодно маленького веса.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записано единственное число N (1 ≤ N ≤ 100) - количество вершин графа. В следующих N строках по N целых чисел - матрица смежности графа (j-ое число в i-ой строке соответствует весу ребра из вершины i в вершину j), в которой число 0 обозначает отсутствие ребра, а любое другое число - наличие ребра соответствующего веса. Все числа по модулю не превышают 100.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите N строк по N чисел: j-ое число в i-ой строке должно быть равно 0, если путь из i в j не существует, 1 - если существует кратчайший путь, и 2 - если существует путь сколь угодно маленького веса.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    e = []
+    a = []
+    INF = 10 ** 10
+    for i in range(n):
+        line = input_file.readline().split()
+        b = []
+        for j in range(n):
+            if int(line[j]) == 0:
+                b.append(INF)
+            else:
+                b.append(int(line[j]))
+        a.append(b)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if a[i][k] < INF and a[k][j] < INF:
+                    a[i][j] = min(a[i][j], a[i][k] + a[k][j])
+    w = []
+    for i in range(n):
+        q = []
+        for j in range(n):
+            q.append(a[i][j])
+        w.append(q)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if a[i][k] < INF and a[k][j] < INF:
+                    a[i][j] = min(a[i][j], a[i][k] + a[k][j])
+    arr = []
+    for i in range(n):
+        for j in range(n):
+            if a[i][j] != w[i][j]:
+                arr.append((i, j))
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                a[i][j] = 1
+            elif a[i][j] != 10 ** 10:
+                a[i][j] = 1
+            elif a[i][j] == 10 ** 10:
+                a[i][j] = 0
+    for i in range(len(arr)):
+        a[arr[i][0]][arr[i][1]] = 2
+    for i in range(n):
+        print(a[i])
+        output_file.write(str(' '.join([str(x) for x in a[i]])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
