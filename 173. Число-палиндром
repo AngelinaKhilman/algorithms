@@ -1,0 +1,67 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 29%)
+Напомним, что палиндромом называется строка, одинаково читающаяся с обеих сторон. Например, строка «ABBA» является палиндромом, а строка «ABC» - нет.
+
+Необходимо определить, в каких системах счисления с основанием от 2 до 36 представление заданного числа N является палиндромом.
+
+В системах счисления с основанием большим 10 в качестве цифр используются буквы английского алфавита: A, B, ... , Z. Например, A11 = 1010, Z36 = 3510.
+
+Входные данные
+Входной файл INPUT.TXT содержит заданное число N в десятичной системе счисления (1 ≤ N ≤ 109).
+
+Выходные данные
+Если соответствующее основание системы счисления определяется единственным образом, то выведите в первой строке выходного файла OUTPUT.TXT слово «unique», если оно не единственно — выведите в первой строке выходного файла слово «multiple». Если же такого основания системы счисления не существует — выведите в первой строке выходного файла слово «none».
+
+В случае существования хотя бы одного требуемого основания системы счисления выведите через пробел в возрастающем порядке во второй строке выходного файла все основания системы счисления, удовлетворяющие требованиям.
+
+def convert_base(num, to_base=10, from_base=10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return convert_base(n // to_base, to_base) + alphabet[n % to_base]
+ 
+def pol(n):
+    k = list(n)
+    for i in range(len(k)):
+        if k[i] != k[len(k) - 1 - i]:
+            return False
+    return True
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    ans = 3
+    line = input_file.readline().split()
+    n = str(line[0])
+    a = []
+    for i in range(2, 37):
+        l = convert_base(n, i, 10)
+        if pol(l):
+            a.append(i)
+    a.sort()
+ 
+    print(a)
+    if len(a) == 0:
+        ans = "none"
+        output_file.write(str(ans) + "\n")
+ 
+    elif len(a) == 1:
+        ans = "unique"
+        output_file.write(str(ans) + "\n")
+        output_file.write(str(a[0]) + "\n")
+    else:
+        ans = "multiple"
+        output_file.write(str(ans) + "\n")
+        output_file.write(str(' '.join([str(x) for x in a])) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
