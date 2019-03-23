@@ -1,0 +1,86 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Судоку размера n называется квадрат со стороной n2, разделенный на n2 средних квадратов со стороной n, каждый из которых разделен на n2 маленьких квадратов. В каждом маленьком квадрате записано число от 1 до n2.
+
+Судоку называется правильным, если в каждом столбце, каждой строке и каждом среднем квадрате встречаются все числа от 1 до n2.
+
+Недавно Вася нарисовал Судоку размера n. Ваша задача – помочь ему определить правильный ли он.
+
+Входные данные
+В первой строке входного файла INPUT.TXT содержится число n (1 ≤ n ≤ 10). В следующих n2 строчках содержится по n2 чисел, задающих нарисованный Васей Судоку.
+
+Все числа во входном файле натуральные и не превосходят 100 по модулю.
+
+Выходные данные
+Если Судоку правильный, то выведите в выходной файл OUTPUT.TXT слово «Correct», иначе выведите «Incorrect».
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    ans = "Correct"
+ 
+    for i in range(n ** 2):
+        b = []
+        line = input_file.readline().split()
+        for j in range(n ** 2):
+            b.append(int(line[j]))
+        a.append(b)
+ 
+    for i in range(n ** 2):
+        used = []
+        for pp in range(n * n):
+            used.append(0)
+        for j in range(n ** 2):
+            if a[i][j] <= n ** 2:
+                used[a[i][j] - 1] += 1
+        for oo in range(len(used)):
+            if used[oo] != 1:
+                ans = "Incorrect"
+                break
+ 
+    for i in range(n ** 2):
+        used = []
+        for pp in range(n * n):
+            used.append(0)
+        for j in range(n ** 2):
+            if a[j][i] <= n ** 2:
+                used[a[j][i] - 1] += 1
+ 
+        for oo in range(len(used)):
+            if used[oo] != 1:
+                ans = "Incorrect"
+                break
+    k1, k2 = 0, n
+ 
+    while k1 <= n * n - n - 1:
+        m1, m2 = 0, n
+ 
+        while m1 <= n * n - n - 1:
+            used = []
+            for oo in range(n * n):
+                used.append(0)
+            for i in range(k1, k2):
+                for j in range(m1, m2):
+                    if a[i][j] <= n ** 2:
+                        used[a[i][j] - 1] += 1
+            for i in range(len(used)):
+                if used[i] != 1:
+                    ans = "Incorrect"
+                    break
+            m1 += n
+            m2 += n
+        k1 += n
+        k2 += n
+ 
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
