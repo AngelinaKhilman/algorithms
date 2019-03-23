@@ -1,0 +1,46 @@
+(Время: 0,2 сек. Память: 16 Мб Сложность: 38%)
+Найти все вхождения строки T в строке S.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записана строка S, во второй строке записана строка T. Обе строки состоят только из английских букв. Длины строк могут быть в диапазоне от 1 до 50 000 включительно.
+
+Выходные данные
+В выходной файл OUTPUT.TXT нужно вывести все вхождения строки T в строку S в порядке возрастания. Нумерация позиций строк начинается с нуля.
+
+
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+vector <int> prefix_function(string s){
+    int n = (int)s.length();
+    vector <int> pi(n);
+    for (int i = 1; i < n; i++){
+        int j = pi[i - 1];
+        while(j > 0 && s[i] != s[j])
+            j = pi[j - 1];
+        if (s[i] == s[j])
+            j++;
+        pi[i] = j;
+    }
+    return pi;
+}
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    string s1, s2, s;
+    cin >> s1;
+    cin >> s2;
+    int n = s2.length();
+    s = s2 + "#" + s1;
+    vector<int> p = prefix_function(s);
+    for (size_t i = 0; i < p.size(); i ++){
+        if (p[i] == n)
+            cout << i - (2 * n) << " ";
+    }
+ 
+    return 0;
+}
