@@ -1,0 +1,75 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 30%)
+Петя очень любит наблюдать за электронными часами. Он целыми днями смотрел на часы и считал, сколько раз встречается каждая цифра. Через несколько месяцев он научился по любому промежутку времени говорить, сколько раз на часах за это время встретится каждая цифра, и очень гордился этим.
+
+Вася решил проверить Петю, но он не знает, как это сделать. Вася попросил Вас помочь ему. Напишите программу, решающую эту задачу.
+
+Входные данные
+Первая и вторая строки входного файла INPUT.TXT содержат начало и конец промежутка времени соответственно. Начальное время не превосходит конечное. Время задается в формате hh:mm:ss (0 ≤ hh < 24, 0 ≤ mm < 60, 0 ≤ ss < 60). hh, mm, ss дополнены ведущими нулями до двух символов. Эти нули также учитываются при подсчете числа цифр.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать 10 строк. В i-ой строке должно быть написано, сколько раз встречается цифра i-1.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split(' ')
+    n = str(line[0])
+    a = []
+    for i in range(10):
+        a.append(0)
+    line = input_file.readline().split(' ')
+ 
+    print(n)
+    u = str(line[0])
+    hours1 = n[0] + n[1]
+    mints1 = n[3] + n[4]
+    sec1 = n[6] + n[7]
+    hours2 = u[0] + u[1]
+    mints2 = u[3] + u[4]
+    sec2 = u[6] + u[7]
+    print(hours1, mints1, sec1, hours2, mints2, sec2)
+    hours1_int = int(hours1)
+    mints1_int = int(mints1)
+    sec1_int = int(sec1)
+    hours2_int = int(hours2)
+    mints2_int = int(mints2)
+    sec2_int = int(sec2)
+    while hours1_int != hours2_int or mints1_int != mints2_int or sec1_int != sec2_int:
+        a[int(hours1[0])] += 1
+        a[int(mints1[0])] += 1
+        a[int(sec1[0])] += 1
+        a[int(hours1[1])] += 1
+        a[int(mints1[1])] += 1
+        a[int(sec1[1])] += 1
+        sec1_int += 1
+        if sec1_int % 60 == 0 and sec1_int != 0:
+            mints1_int += 1
+        sec1_int = sec1_int % 60
+        if mints1_int % 60 == 0 and mints1_int != 0:
+            hours1_int += 1
+        mints1_int = mints1_int % 60
+        hours1_int = hours1_int % 24
+        hours1 = str(hours1_int)
+        if len(hours1) < 2:
+            hours1 = "0" + hours1
+        mints1 = str(mints1_int)
+        if len(mints1) < 2:
+            mints1 = "0" + mints1
+        sec1 = str(sec1_int)
+        if len(sec1) < 2:
+            sec1 = "0" + sec1
+    a[int(hours1[0])] += 1
+    a[int(mints1[0])] += 1
+    a[int(sec1[0])] += 1
+    a[int(hours1[1])] += 1
+    a[int(mints1[1])] += 1
+    a[int(sec1[1])] += 1
+    print(a)
+    for i in range(10):
+        output_file.write(str(a[i]) + "\n")
+ 
+ 
+ 
+if __name__ == "__main__":
+    main()
