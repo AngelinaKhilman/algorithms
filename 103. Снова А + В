@@ -1,0 +1,25 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 35%)
+Требуется сложить два целых числа А и В.
+
+Входные данные
+Во входном файле INPUT.TXT записано два неотрицательных целых числа, не превышающих 10100, по одному в каждой строке.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести одно целое число — сумму чисел А и В, без лидирующих нулей.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+ 
+    n = int(input_file.readline())
+    m = int(input_file.readline())
+ 
+    ans = n + m
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
