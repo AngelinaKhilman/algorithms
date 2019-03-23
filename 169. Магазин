@@ -1,0 +1,50 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 34%)
+На расстоянии N шагов от магазина стоит человек. Каждую минуту он выбирает, куда сделать шаг: к магазину или в противоположном направлении.
+
+Требуется написать программу, которая определит, сколькими способами он может попасть в магазин, пройдя ровно K шагов и оказавшись в магазине только после выполнения последнего шага.
+
+Входные данные
+Входной файл INPUT.TXT содержит 2 числа n и k, записанные через пробел. Известно, что 1 ≤ N ≤ K ≤ 37.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать одно число – количество способов попадания в магазин.
+
+import math
+from cmath import sqrt
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    k, n = int(line[0]), int(line[1])
+ 
+    a = []
+ 
+    for i in range(n+1):
+        b = []
+        for j in range(k+n):
+            b.append(0)
+        a.append(b)
+        print(a[i])
+ 
+    a[0][k] = 1
+ 
+    for i in range(1,n+1):
+        for j in range(0,k-1+n):
+            a[i][j] = a[i-1][j+1]
+            if j - 1 >= 0:
+                a[i][j] += a[i - 1][j - 1]
+        if i != n:
+            a[i][0] = 0
+ 
+    print(a)
+    print (a[n][0])
+ 
+    output_file.write(str(a[n][0]) + " ")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
