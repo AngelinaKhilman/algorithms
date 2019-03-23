@@ -1,0 +1,55 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 31%)
+Дан некоторый набор букв и словарь. Ваша задача - подсчитать, сколько различных слов из словаря можно составить из этих букв.
+
+Входные данные
+В первой строке файла INPUT.TXT записано число N - количество слов в словаре (0 ≤ N ≤ 1000). В следующих N строках файла записано по одному слову из словаря. Слова содержат от 1 до 10 маленьких английских букв. Все слова в словаре различны. В последней строке файла записан набор букв (от 1 до 100 букв).
+
+Выходные данные
+Запишите в файл OUTPUT.TXT количество различных слов из словаря, которые можно составить из заданного набора букв.
+
+import re
+def pol(s):
+    l = len(s)
+    for i in range(l // 2):
+        if s[i] != s[-1 - i]:
+            return True
+            quit()
+ 
+    return False
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    s = set()
+    for i in range(n):
+        line = input_file.readline().split()
+        s.add(str(line[0]))
+    line = input_file.readline().split()
+    d = str(line[0])
+    ans = 0
+    for j in s:
+        d1 = d
+        booll = [0] * len(d1)
+        q = list(j)
+        print(q)
+        for i in range(len(q)):
+            for k in range(len(d1)):
+                if q[i] == d1[k] and booll[k] != 1:
+                    booll[k] = 1
+                    break
+        print(booll)
+        count = booll.count(1)
+        if count == len(j):
+            ans += 1
+        print(d1)
+    print(ans)
+ 
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
