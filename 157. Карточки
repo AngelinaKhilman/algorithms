@@ -1,0 +1,39 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 38%)
+На день рождения Пете подарили набор карточек с буквами. Теперь Петя с большим интересом составляет из них разные слова. И вот, однажды, составив очередное слово, Петя заинтересовался вопросом: "А сколько различных слов можно составить из тех же карточек, что и данное?".
+
+Помогите ему ответить на этот вопрос.
+
+Входные данные
+Во входном файле INPUT.TXT задано слово, составленное Петей - строка из маленьких английских букв не длиннее 15 символов.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите одно целое число - ответ на поставленную задачу.
+
+import math
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = list(str(line[0]))
+    print(n)
+    seta = set(n)
+    arr = []
+    for i in seta:
+        arr.append((n.count(i)))
+    print(arr)
+    ch = 0
+    z = 1
+    for i in range(len(arr)):
+        ch += arr[i]
+        z *= math.factorial(arr[i])
+    ans = math.factorial(ch) / z
+    print(ans)
+ 
+    output_file.write(str(int(ans)) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
