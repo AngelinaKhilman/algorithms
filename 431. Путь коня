@@ -1,0 +1,190 @@
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    a = []
+   
+    ans = 0
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
+    for i in range(n):
+        line = input_file.readline().split()
+        a.append(list(''.join(line)))
+        print(a[i])
+ 
+    for i in range(n):
+        for j in range(m):
+            if a[i][j] == "#":
+                ans = ans + 1
+                queue = []
+                queue.append([i, j])
+                head = 0
+                tail = 1
+                a[i][j] = "."
+ 
+                while head < tail:
+                    p = queue[head]
+                    x, y = p[0], p[1]
+ 
+                    for k in range(4):
+                        x1 = x + dx[k]
+                        y1 = y + dy[k]
+                        if x1 >= 0 and x1 < n and y1 >=0 and y1 < m and a[x1][y1] == "#":
+                            queue.append([x1,y1])
+                            a[x1][y1] = "."
+                            tail = tail + 1
+                    head = head+1
+ 
+ 
+ 
+    print(ans)
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+if __name__ == "__main__":
+    main()
+    
+    #include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n, vh, vyh, vyhi, vyhj;
+    bool flag = false;
+    cin >> n;
+    char a[n][n];
+ 
+    for (int i = 0; i < n; i++){
+         string s;
+         cin >> s;
+        for (int j = 0; j < n; j++){
+ 
+            a[i][j] = s[j];
+ 
+            if (a[i][j] == '@'&& flag){
+                vyh = i * n + j;
+                vyhi = i;
+                vyhj = j;
+ 
+            }
+             if (a[i][j] == '@' && !flag) {
+                vh = i * n + j;
+                 flag = true;
+ 
+            }
+        }
+    }
+ 
+    vector<vector <int> > v;
+    v.resize(n * n);
+ 
+ 
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++){
+            if (i + 1 < n && j + 2 < n)
+                if (a[i + 1][j + 2] != '#')
+                    v[i * n + j].push_back((i + 1) * n + (j + 2));
+            if (j + 1 < n && i + 2 < n)
+                if (a[i + 2][j + 1] != '#')
+                    v[i * n + j].push_back((i + 2) * n + (j + 1));
+            if (i + 2 < n && j - 1 >= 0)
+                if (a[i + 2][j - 1] != '#')
+                    v[i * n + j].push_back((i + 2) * n + (j - 1));
+            if (j - 2 >= 0 && i + 1 < n)
+                if (a[i + 1][j - 2] != '#')
+                    v[i * n + j].push_back((i + 1) * n + (j - 2));
+            if (j - 2 >= 0 && i - 1 >= 0)
+                if (a[i - 1][j - 2] != '#')
+                    v[i * n + j].push_back((i - 1) * n + (j - 2));
+            if (i - 2 >= 0 && j - 1 >= 0)
+                if (a[i - 2][j - 1] != '#')
+                    v[i * n + j].push_back((i - 2) * n + (j - 1));
+            if (i - 2 >= 0 && j + 1 < n)
+                if (a[i - 2][j + 1] != '#')
+                    v[i * n + j].push_back((i - 2) * n + (j + 1));
+            if (i - 1 >= 0 && j + 2 < n)
+                if (a[i - 1][j + 2] != '#')
+                    v[i * n + j].push_back((i - 1) * n + (j + 2));
+ 
+        }
+    }
+ 
+ 
+ 
+    int d[n * n];
+    for (int j = 0; j < n * n; j++){
+        d[j] = 999999999;
+    }
+    d[vh] = 0;
+    int p[n * n];
+    for (int i = 0; i < n * n; i++){
+        p[i] = -1;
+    }
+    int visited[n * n];
+    for (int j = 0; j < n * n; j ++){
+        visited[j] = 0;
+    }
+    for (int t = 0; t < n * n; t++){
+        int INF = 999999999;
+        int k = 0;
+        for (int l = 0; l < n * n; l++){
+            if (d[l] < INF && visited[l] < 1){
+                INF = d[l];
+                k = l;
+            }
+        }
+        if (d[k] == 999999999){
+            break;
+        }
+        visited[k] = 1;
+        for (int r = 0; r < n * n; r++){
+                int qwe = 999999999;
+        for (size_t it = 0; it < v[k].size(); it++)
+        {
+            if (v[k][it] == r){
+                qwe = 1;
+            }
+        }
+            if(qwe + d[k] < d[r]){
+                d[r] = qwe + d[k];
+                p[r] = k;
+            }
+        }
+    }
+ 
+ 
+    if (d[vyh] == 999999999){
+        string ans = "Impossible";
+        cout << ans << "\n";
+    }
+    else{
+        string ans = "Yes";
+        vector <int> path;
+        int cur = vyh;
+        while (cur != -1){
+            cur = p[cur];
+ 
+            path.push_back(cur);
+        }
+ 
+        for (size_t i = 0; i < (path.size() - 2); i++){
+            int qwerty = path[i] / n;
+            int yuio = path[i] - (qwerty * n);
+            a[qwerty][yuio] = '@';
+        }
+        a[vyhi][vyhj] = '@';
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < n; j++){
+                cout << a[i][j];
+            }
+            cout << "\n";
+        }
+    }
+ 
+    return 0;
+}
