@@ -1,0 +1,82 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 38%)
+Спираль Требуется вывести квадрат, состоящий из N×N клеток, заполненных числами от 1 до N2 по спирали (см. примеры).
+
+Входные данные
+Во входном файле INPUT.TXT задано целое число N – размер квадратной матрицы (2 ≤ N ≤ 100).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите матрицу, заполненную числами от 1 до N2 по спирали, при этом между числами может быть любое количество пробелов. Не допускается начинать спираль в ином, кроме верхнего левого, углу, закручивать спираль против часовой стрелки или изнутри наружу.
+
+import math
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    for i in range(n):
+        b = []
+        for j in range(n):
+            b.append(0)
+        a.append(b)
+    count = 1
+    f = n
+    s = n
+    t = n
+    p = n
+    j = 0
+    k = 0
+    l = 0
+    while True:
+        j = 0 + l
+        k = 0 + l
+ 
+        while k < f:
+            a[j][k] = count
+            count += 1
+            k += 1
+        if count > n * n:
+            break
+        count -= 1
+        f -= 1
+        j = 0 + l
+        k = n - 1 - l
+        while j < s:
+            a[j][k] = count
+            count += 1
+            j += 1
+        if count > n * n:
+            break
+        s -=1
+        j = n - 1 - l
+        k = n - 1 - l
+        count -= 1
+        while k >= 0 + l:
+            a[j][k] = count
+            count += 1
+            k -= 1
+        if count > n * n:
+            break
+        t -= 1
+        j = n - 1 - l
+        k = 0 + l
+        count -= 1
+        while j > l:
+            a[j][k] = count
+            count += 1
+            j -= 1
+ 
+        l += 1
+ 
+    for i in range(n):
+        print(a[i])
+ 
+ 
+        output_file.write(str(' '.join([str(x) for x in a[i]])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
