@@ -1,0 +1,53 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 41%)
+В клубе N человек. Многие из них - друзья. Так же известно, что друзья друзей так же являются друзьями. Требуется выяснить, сколько всего друзей у конкретного человека в клубе.
+
+Входные данные
+В первой строке входного файла INPUT.TXT заданы два числа: N и S (1 ≤ N ≤ 100; 1 ≤ S ≤ N), где N - количество человек в клубе, а S – номер конкретного человека. В следующих N строках записано по N чисел - матрица смежности, состоящая из единиц и нулей. Причем единица, стоящая в i-й строке и j-м столбце гарантирует, что люди с номерами i и j – друзья, а 0 – выражает неопределенность.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите количество гарантированных друзей у человека с номером S, помня о транзитивности дружбы.
+
+used = []
+path = []
+ 
+def dfs(v, alist):
+    used[v] = 1
+    path.append(v+1)
+    for i in range(len(alist)):
+        if used[i] == 0 and alist[v][i] == 1:
+            dfs(i, alist)
+            print(path)
+    return(len(path)-1)
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    inf = 10 ** 9
+ 
+    b = []
+    line = input_file.readline().split()
+    n, v = int(line[0]), int(line[1])-1
+ 
+    for i in range(n):
+        used.append(0)
+ 
+    for i in range(n):
+        line = input_file.readline().split()
+        a = []
+        for j in range(n):
+            a.append(int(line[j]))
+        b.append(a)
+ 
+    print(b)
+ 
+    number = dfs(v, b)
+    print(number)
+ 
+ 
+    output_file.write(str(number) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+if __name__ == "__main__":
+    main()
