@@ -1,0 +1,47 @@
+(Время: 1 сек. Память: 64 Мб Сложность: 34%)
+Даны два неупорядоченных набора целых чисел (может быть, с повторениями). Выдать без повторений в порядке возрастания все те числа, которые встречаются в обоих наборах.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записано через пробел два целых числа N и М (1 ≤ N, М ≤ 300 000) — количество элементов первого и второго наборов, соответственно. В следующих строках записано сначала N чисел первого набора, а затем M чисел второго набора. Числа разделены пробелами или символами конца строки. Каждое из этих чисел попадает в промежуток от 0 до 105.
+
+Выходные данные
+В выходной файл OUTPUT.TXT нужно записать в возрастающем порядке без повторений все числа, которые входят как в первый, так и во второй набор. Числа разделять одним пробелом. Если таких чисел нет, то выходной файл должен оставаться пустым.
+
+
+import math
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    a = set()
+    b = set()
+    arr = []
+    for i in range((10 ** 5) + 1):
+        arr.append(0)
+    line = input_file.readline().split()
+    for i in range(n):
+        a.add(int(line[i]))
+    line = input_file.readline().split()
+    for i in range(m):
+        b.add(int(line[i]))
+    for i in a:
+        arr[i] += 1
+    for i in b:
+        arr[i] += 1
+    mass = []
+    for i in range(len(arr)):
+        if arr[i] > 1:
+            mass.append(i)
+    print(mass)
+ 
+ 
+ 
+ 
+ 
+ 
+    output_file.write(str(' '.join(str(x) for x in mass)) + "\n")
+    input_file.close()
+    output_file.close()
+if __name__ == "__main__":
+    main()
