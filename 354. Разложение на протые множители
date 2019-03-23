@@ -1,0 +1,40 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 27%)
+Требуется вывести представление целого числа N в виде произведения простых чисел.
+
+Входные данные
+Входной файл INPUT.TXT содержит натуральное число N (2 ≤ N ≤ 231-1).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите список простых множителей числа N в порядке неубывания, разделенных знаком «*».
+
+def primfacs(n):
+   i = 2
+   primfac = []
+   while i * i <= n:
+       while n % i == 0:
+           primfac.append(i)
+           n = n / i
+       i = i + 1
+   if n > 1:
+       primfac.append(int(n))
+   return primfac
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = primfacs(n)
+    print(a)
+    a.sort()
+ 
+ 
+    output_file.write(str('*'.join([str(x) for x in a])) + "\n")
+ 
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
