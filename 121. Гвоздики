@@ -1,0 +1,41 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 34%)
+На прямой дощечке вбиты гвоздики. Любые два гвоздика можно соединить ниточкой. Требуется соединить некоторые пары гвоздиков ниточками так, чтобы к каждому гвоздику была привязана хотя бы одна ниточка, а суммарная длина всех ниточек была минимальна.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записано число N - количество гвоздиков (2 ≤ N ≤ 100). В следующей строке записано N чисел - координаты всех гвоздиков (неотрицательные целые числа, не превосходящие 10000).
+
+Выходные данные
+В выходной файл OUTPUT.TXT нужно вывести единственное число - минимальную суммарную длину всех ниточек.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a = []
+    n = int(line[0])
+    line = input_file.readline().split()
+    vs = []
+    for i in range(n):
+        a.append(int(line[i]))
+    for i in range(n):
+        vs.append(0)
+    a.sort()
+    print(a)
+    if n == 2:
+        ans = abs(a[1] - a[0])
+    else:
+        vs[1] = a[1] - a[0]
+        vs[2] = a[2] - a[0]
+        for i in range(3, n):
+           vs[i] = min(vs[i-1], vs[i-2]) + a[i] - a[i-1]
+ 
+        print(vs)
+        ans = vs[-1]
+    print(ans)
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
