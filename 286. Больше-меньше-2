@@ -1,0 +1,117 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 43%)
+Программист Билл занимается разработкой программного обеспечения для новейшего робота-исследователя, которого учёные планируют отправить на Марс с целью поиска там следов разумной жизни. Модули, которые отвечают за передвижение робота и сбор проб грунта, Билл уже скачал из Интернета. Оставалось лишь научить робота отличать разумные формы жизни от неразумных. Для этого Боб несколько месяцев посещал программистские форумы, и, наконец, нашёл подходящий модуль. Теперь, чтобы определить, является ли тот или иной объект представителем внеземной расы, роботу достаточно сравнить два вещественных числа.
+
+Однако за несколько часов до запуска корабля на Марс обнаружилось, что робот неправильно сравнивает вещественные числа! Чтобы исправить эту ошибку, учёные обратились за помощью к Вам.
+
+Входные данные
+Входной файл INPUT.TXT состоит из двух строк, в каждой из которых записано по одному вещественному числу без ведущих нулей. Целая и дробная части отделяются точкой, которая может быть опущена, если число целое. Каждое из чисел содержит не более 10000 цифр. Если число равно нулю, то знака минус в его записи нет.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите один символ ‘<’, если первое число меньше второго, ‘>’, если больше, и ‘=’, если числа равны.
+
+import datetime
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    f1 = False
+    f2 = False
+    if line[0].find(".") != -1:
+        f1 = True
+        w = line[0].split(".")
+        wer = w[1]
+        print(w[1][-1])
+        while w[1][-1] == "0":
+            if int(w[1]) != 0:
+                w.append(str(int(w[1]) // 10))
+                w.pop(1)
+            else:
+                break
+        a, b = int(w[0]), int(w[1])
+    else:
+        a2 = int(line[0])
+ 
+    line = input_file.readline().split()
+    if line[0].find(".") != -1:
+        f2 = True
+        w = line[0].split(".")
+        wet = w[1]
+        while w[1][-1] == "0":
+            if int(w[1]) != 0:
+                w.append(str(int(w[1]) // 10))
+                w.pop(1)
+            else:
+                break
+        a1, b1 = int(w[0]), int(w[1])
+    else:
+        b2 = int(line[0])
+    if f1 and f2:
+        if a < 0 and a1 < 0:
+            if a > a1:
+                ans = ">"
+            if a < a1:
+                ans = "<"
+            if a == a1:
+                wer = wer.ljust(len(wet), "0")
+                wet = wet.ljust(len(wer), '0')
+                for i in range(len(wer)):
+                    if wer[i] > wet[i]:
+                        ans = "<"
+                        break
+                    if wer[i] < wet[i]:
+                        ans = ">"
+                        break
+                    if wer[i] == wet[i]:
+                        ans = "="
+ 
+        else:
+            if a > a1:
+                ans = ">"
+            if a < a1:
+                ans = "<"
+            if a == a1:
+                wer = wer.ljust(len(wet), "0")
+                wet = wet.ljust(len(wer), '0')
+                for i in range(len(wer)):
+                    if wer[i] > wet[i]:
+                        ans = ">"
+                        break
+                    if wer[i] < wet[i]:
+                        ans = "<"
+                        break
+                    if wer[i] == wet[i]:
+                        ans = "="
+ 
+    if f1 and f2 == False:
+        if a > b2:
+            ans = ">"
+        if a < b2:
+            ans = "<"
+        if a == b2 and int(b) != 0:
+            ans = ">"
+        if a == b2 and int(b) == 0:
+            ans = "="
+    if f1 == False and f2:
+        if a1 > a2:
+            ans = "<"
+        if a1 < a2:
+            ans = ">"
+        if a1 == a2 and int(b1) != 0:
+            ans = "<"
+        if a1 == a2 and int(b1) == 0:
+            ans = "="
+    if f1 == False and f2 == False:
+        if a2 > b2:
+            ans = ">"
+        if a2 < b2:
+            ans = "<"
+        if a2 == b2:
+            ans = "="
+    print(ans)
+    output_file.write(str(ans) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
