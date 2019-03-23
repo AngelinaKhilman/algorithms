@@ -1,0 +1,45 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 25%)
+Задано натуральное число n. Необходимо перевести его в k-ичную систему счисления и найти разность между произведением и суммой его цифр в этой системе счисления.
+
+Например, пусть n = 239, k = 8. Тогда представление числа n в восьмеричной системе счисления — 357, а ответ на задачу равен 3 × 5 × 7 − (3 + 5 + 7) = 90.
+
+Входные данные
+Входной файл INPUT.TXT содержит два натуральных числа: n и k (1 ≤ n ≤ 109, 2 ≤ k ≤ 10). Оба этих числа заданы в десятичной системе счисления.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу (в десятичной системе счисления).
+
+
+def convert_base(num, to_base=10, from_base=10):
+    if isinstance(num, str):
+        n = int(num, from_base)
+    else:
+        n = int(num)
+    alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if n < to_base:
+        return alphabet[n]
+    else:
+        return convert_base(n // to_base, to_base) + alphabet[n % to_base]
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, k = int(line[0]), int(line[1])
+    s = convert_base(n, k, 10)
+    s = list(s)
+    summ = 0
+    pr = 1
+    for i in range(len(s)):
+        pr = pr * int(s[i])
+        summ += int(s[i])
+    ans = pr - summ
+    print(ans)
+ 
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
