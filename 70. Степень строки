@@ -1,0 +1,63 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 30%)
+Пусть задана строка s = s1s2...sn. Назовем ее k-ой (k > 0) степенью sk строку sk = s1s2 . . .sns1s2 . . .sn......s1s2...sn (k раз). Например, третьей степенью строки abc является строка abcabcabc.
+
+Корнем k степени из строки s называется такая строка t (если она существует), что tk = s.
+
+Ваша задача состоит в том, чтобы написать программу, находящую степень строки или корень из нее.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит строку s, она содержит только маленькие буквы английского алфавита и имеет ненулевую длину, не превосходящую 1000.
+
+Вторая строка входного файла содержит целое число k ≠ 0, |k| < 100001. Если k > 0, то необходимо найти k-ую степень строки s, если k < 0, то необходимо найти корень степени |k| из s.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите строку, являющуюся ответом на задачу. Если длина ответа превосходит 1023 символа, выведите только первые 1023 символа. Если искомой строки не существует — выведите NO SOLUTION.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    s = str(line[0])
+    line = input_file.readline().split()
+    n = int(line[0])
+    m = n * len(s)
+    print(n, s)
+    if m > 1023:
+        m = 1023
+    ans = ""
+    if n > 0:
+        while len(ans) < m:
+            ans = ans + s
+ 
+ 
+    else:
+        if len(s) >= abs(n) and ((len(s) / abs(n)) - (int(len(s) / abs(n)))) == 0:
+            q = int(len(s) / abs(n))
+ 
+            a = []
+ 
+            for j in range(0, len(s), q):
+                k = ""
+                for i in range(j, j + q):
+                    k += s[i]
+                a.append(k)
+            print(a)
+            a = set(a)
+            print(a)
+            if len(a) == 1:
+                ans = str(a.pop())
+            else:
+                ans = "NO SOLUTION"
+        else:
+            ans = "NO SOLUTION"
+    print(len(ans))
+    ans = ans[0:1023]
+    print(ans)
+    output_file.write(str(ans) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
