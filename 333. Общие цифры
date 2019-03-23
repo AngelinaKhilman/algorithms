@@ -1,0 +1,61 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Заданы натуральные числа A, B, C. Требуется написать программу, которая найдет общие цифры в этих числах.
+
+Входные данные
+Входной файл INPUT.TXT содержит три натуральных числа A, B, C (1 ≤ A, B, C ≤ 1080). Числа разделены одним пробелом.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать в первой строке количество общих цифр, а во второй строке в порядке возрастания через один пробел общие цифры.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a = set(line[0])
+    b = set(line[1])
+    c = set(line[2])
+    arr = []
+    arr += a
+    arr += c
+    arr += b
+    mass = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for j in arr:
+        if j == '0':
+            mass[0] += 1
+        if j == '1':
+            mass[1] += 1
+        if j == '2':
+            mass[2] += 1
+        if j == '3':
+            mass[3] += 1
+        if j == '4':
+            mass[4] += 1
+        if j == '5':
+            mass[5] += 1
+        if j == '6':
+            mass[6] += 1
+        if j == '7':
+            mass[7] += 1
+        if j == '8':
+            mass[8] += 1
+        if j == '9':
+            mass[9] += 1
+    print(mass)
+    print(arr)
+    count = 0
+    array = []
+    for i in range(len(mass)):
+        if mass[i] >= 3:
+            count += 1
+            array.append(i)
+ 
+    output_file.write(str(count) + "\n")
+    if count > 0:
+        output_file.write(str(' '.join([str(x) for x in array])) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
