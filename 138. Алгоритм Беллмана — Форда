@@ -1,0 +1,57 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 38%)
+Дан ориентированный граф, в котором могут быть кратные ребра и петли. Каждое ребро имеет вес, выражающийся целым числом (возможно, отрицательным). Гарантируется, что циклы отрицательного веса отсутствуют.
+
+Требуется посчитать длины кратчайших путей от вершины номер 1 до всех остальных вершин.
+
+Входные данные
+В первой строке входного файла INPUT.TXT записаны целые числа N и M - количество вершин и количество ребер графа (1 ≤ N ≤ 100, 0 ≤ M ≤ 10000). В каждой из последующих M строк записана тройка чисел, описывающих ребра: начало ребра, конец ребра и вес (вес - целое число от -100 до 100).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите N чисел - расстояния от вершины номер 1 до всех вершин графа. Если пути до соответствующей вершины не существует, вместо длины пути выведите число 30000.
+
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    f = []
+    s = []
+    w = []
+    distances = []
+    INF = 10 ** 100
+    for i in range (m):
+        line = input_file.readline().split()
+        f.append(int(line[0]))
+        s.append(int(line[1]))
+        w.append(int(line[2]))
+
+    print(f)
+    print(s)
+    print(w)
+
+    for i in range(n):
+        distances.append(INF)
+
+    distances[0] = 0
+    print(distances)
+
+    for i in range(n-1):
+        for j in range(m):
+            if distances[s[j]-1] > distances[f[j]-1] + w[j] and distances[f[j]-1] != INF:
+                distances[s[j]-1] = distances[f[j]-1] + w[j]
+        print(distances)
+
+    for i in range(n):
+        if distances[i] == INF:
+            distances[i] = 30000
+
+    print(distances)
+
+    output_file.write(str(' '.join([str(x) for x in distances])) + "\n")
+    input_file.close()
+    output_file.close()
+
+if __name__ == "__main__":
+    main()
