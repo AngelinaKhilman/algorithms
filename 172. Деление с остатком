@@ -1,0 +1,24 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 39%)
+Заданы два числа: N и K. Необходимо найти остаток от деления N на K.
+
+Входные данные
+Входной файл INPUT.TXT содержит два целых числа: N и K (1 ≤ N ≤ 10100, 1 ≤ K ≤ 109).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите остаток от деления N на K.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    ans = n % m
+    print(ans)
+    output_file.write(str(ans) + "\n")
+    #output_file.write(str(''.join([str(x + " " + str(d[x])) + "\n" for x in d])) + "\n")
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
