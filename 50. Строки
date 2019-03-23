@@ -1,0 +1,50 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 29%)
+Циклическим сдвигом строки s называется строка sksk+1sk+2…s|s|s1s2…sk-1 для некоторого k, здесь |s| - длина строки s. Подстрокой строки s называется строка sisi+1…sj-1sj для некоторых i и j. Вам даны две строки a и b. Выведите количество подстрок строки a, являющихся циклическими сдвигами строки b.
+
+Входные данные
+Первая строка входного файла INPUT.TXT содержит строку a (1 ≤ |a| ≤ 1000). Во второй строке входного файла записана строка b (1 ≤ |b| ≤ min(100,|a|)). Обе строки состоят только из символов английского алфавита и цифр.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите целое число – ответ на задачу.
+
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = str(line[0])
+    print(n)
+    line = input_file.readline().split()
+    m = list(line[0])
+    print(n, m)
+    b = set()
+    for i in range(len(m)):
+        s = ""
+        for j in range(len(m)):
+            s += m[j]
+        b.add(s)
+        m.insert(0, m[len(m) - 1])
+        m.pop()
+    print(b)
+    count = 0
+    flag = True
+    start = 0
+    for j in b:
+        while flag:
+            a = n.find(j, start)
+            if a == -1:
+                flag = False
+            else:
+                count += 1
+                start = a + 1
+        start = 0
+        flag = True
+    print(count)
+ 
+    output_file.write(str(count) + '\n')
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
