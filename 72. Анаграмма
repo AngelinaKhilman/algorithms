@@ -1,0 +1,50 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 45%)
+Пусть задано некоторое слово, состоящее из букв английского алфавита длиной не более 80 символов (например, “WORD”). Рассмотрим набор возможных перестановок, состоящих из букв данного слова (например, “RDOW”, “WODR” и т.д.). Требуется выбрать из этого множества слово, следующее по алфавиту за исходным.
+
+Входные данные
+В единственной строке входного файла INPUT.TXT записано слово, не последнее по алфавиту среди возможных его перестановок.
+
+Выходные данные
+В единственную строку выходного файла OUTPUT.TXT нужно вывести следующее слово по алфавиту.
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    char str[81];
+    char strj, strl;
+    int indj, indl;
+    cin >> str;
+    for (int j = 0; j < (strlen(str) - 1); j++){
+        if (str[j] < str[j + 1])
+        {
+            indj = j;
+            strj = str[j];
+        }
+ 
+    }
+    for (int l = indj + 1; l < strlen(str); l++){
+        if (str[l] > strj)
+        {
+             indl = l;
+            strl = str[l];
+        }
+ 
+    }
+    char tmp = str[indj];
+    str[indj] = str[indl];
+    str[indl] = tmp;
+    string ans = "";
+    for (int i = 0; i <= indj; i++)
+        ans += str[i];
+    for (int j = strlen(str) - 1; j >= indj + 1; j--)
+        ans += str[j];
+    cout << ans << endl;
+ 
+ 
+    return 0;
+}
