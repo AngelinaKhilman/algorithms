@@ -1,0 +1,53 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 17%)
+На плоскости даны две окружности. Требуется проверить, имеют ли они хотя бы одну общую точку.
+
+Входные данные
+Входной файл INPUT.TXT состоит из двух строк. На каждой строке записана информация об одной окружности – координаты ее центра x и y (целые числа, по модулю не превосходящие 5000) и радиус (целое число 1 ≤ r ≤ 1000).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите «YES», если окружности имеют хотя бы одну общую точку, и «NO» в противном случае.
+
+
+import math
+from cmath import sqrt
+ 
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    x1, y1, r1 = int(line[0]), int(line[1]), int(line[2])
+    line = input_file.readline().split()
+    x2, y2, r2 = int(line[0]), int(line[1]), int(line[2])
+ 
+    a1 = (x2-x1)*(x2-x1)
+    a2 = (y2-y1)*(y2-y1)
+    print(a1, a2)
+    k = math.sqrt(a1+a2)
+ 
+    print(k)
+ 
+    if x1 == x2 and y1 == y2 and r1 == r2:
+        l = "YES"
+    if x1 == x2 and y1 == y2 and r1 != r2:
+        l = "NO"
+    else:
+        if r1 + r2 >= k and r2 <= k + r1 and r1 <= k + r2:
+            l = "YES"
+            print("YES")
+        else:
+            l = "NO"
+            print("NO")
+ 
+ 
+ 
+ 
+ 
+    output_file.write(str(l) + "\n")
+ 
+    input_file.close()
+    output_file.close()
+ 
+ 
+if __name__ == "__main__":
+    main()
