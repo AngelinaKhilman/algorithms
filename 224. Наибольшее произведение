@@ -1,0 +1,39 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 38%)
+Дано N целых чисел. Требуется выбрать из них три таких числа, произведение которых максимально.
+
+Входные данные
+Во входном файле INPUT.TXT записано сначала число N — количество чисел в последовательности (3 ≤ N ≤ 106). Далее записана сама последовательность: N целых чисел, по модулю не превышающих 30000.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите значение наибольшего произведения искомых трех чисел.
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n;
+    long long ans, e, r;
+    cin >> n;
+    vector <int>  v(n);
+    for (int i = 0; i < n; i++){
+        cin >> v[i];
+    }
+    sort(v.begin(), v.end());
+    r = 1LL*v[n - 3] * v[n - 2] * v[n - 1];
+    e = 1LL*v[n - 1] * v[0] * v[1];
+    if (r > e)
+        ans = r;
+    else
+        ans = e;
+    cout << ans;
+
+
+
+
+    return 0;
+}
