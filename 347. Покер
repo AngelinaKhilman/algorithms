@@ -1,0 +1,71 @@
+Имеется 5 целых чисел. Среди них:
+
+• если одинаковы 5, то вывести "Impossible", иначе
+• если одинаковы 4, то вывести "Four of a Kind", иначе
+• если одинаковы 3 и 2, то вывести "Full House", иначе
+• если есть 5 последовательных, то вывести "Straight", иначе
+• если одинаковы 3, то вывести "Three of a Kind", иначе
+• если одинаковы 2 и 2, то вывести "Two Pairs", иначе
+• если одинаковы 2, то вывести "One Pair", иначе
+• вывести "Nothing".
+Входные данные
+Входной файл INPUT.TXT содержит 5 целых чисел от 1 до 13, разделенных пробелом.
+
+Выходные данные
+В выходной файл OUTPUT.TXT следует вывести результат анализа.
+
+
+
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    vector <int>  a(5);
+
+    string ans;
+    cin >> a[0] >> a[1] >> a[2] >> a[3] >> a[4];
+    sort(a.begin(), a.end());
+    if (a[0] == a[4])
+        ans = "Impossible";
+    else{
+
+        if ((a[0] == a[3]) || (a[4] == a[1]))
+            ans = "Four of a Kind";
+        else{
+
+            if ((a[0] == a[2] && a[3] == a[4]) || (a[0] == a[1] && a[2] == a[4]))
+                ans = "Full House";
+            else{
+                if ((a[4]-a[3]==a[2]-a[1]) && (a[3]-a[2]==a[1]-a[0]))
+                    ans = "Straight";
+                else{
+                    if (a[0] == a[2] || a[1] == a[3] || a[2] == a[4])
+                        ans = "Three of a Kind";
+                    else{
+                        if ((a[0] == a[1] && a[2] == a[3]) || (a[0] == a[1] && a[3] == a[4]) || (a[1] == a[2] && a[3] == a[4] ))
+                            ans = "Two Pairs";
+                        else{
+                            if (a[0] == a[1] || a[1] == a[2] || a[2] == a[3] || a[3] == a[4])
+                                ans  = "One Pair";
+                            else{
+                                ans = "Nothing";
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+    cout << ans;
+
+
+
+    return 0;
+}
