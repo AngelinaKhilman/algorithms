@@ -1,0 +1,58 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 28%)
+Задана матрица, содержащая N строк и M столбцов. Седловой точкой этой матрицы назовем элемент, который одновременно является минимумом в своей строке и максимумом в своем столбце.
+
+Найдите количество седловых точек заданной матрицы.
+
+Входные данные
+Входной файл INPUT.TXT в первой строке содержит целые числа N и M (1 ≤ N, M ≤ 750). Далее следуют N строк по M чисел в каждой. Элементы матрицы - целые числа, не превосходящие 1000 по абсолютной величине. Числа могут быть разделены несколькими пробелами.
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+
+
+#include <stdio.h>
+#include <vector>
+#include <iostream>
+//#include<bits/stdc++.h>
+
+using namespace std;
+
+const int INF = 1000000000;
+
+int main() {
+    int n, m, k;
+    scanf("%d", &n);
+    scanf("%d", &m);
+    vector < vector <int > > v(n);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++){
+            scanf("%d", &k);;
+            v[i].push_back(k);
+        }
+    vector <int> v1, v2;
+    for (int i = 0; i < n; i++)
+        {
+        int minm = 1000000;
+        for (int j = 0; j < m; j++)
+            if (v[i][j] < minm)
+                minm = v[i][j];
+        v1.push_back(minm);
+        }
+    for (int i = 0; i < m; i++)
+        {
+        int maxm = -1000000;
+        for (int j = 0; j < n; j++)
+            if (v[j][i] > maxm)
+                maxm = v[j][i];
+        v2.push_back(maxm);
+        }
+    int count = 0;
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < m; j++)
+            if (v[i][j] == v1[i] && v[i][j] == v2[j])
+                count += 1;
+    }
+    printf("%d", count);
+    return 0;
+}
