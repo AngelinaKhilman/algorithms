@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int maxN = 2e5 + 10;
+const int maxM = 21;
+vector <vector <int> > g(maxN);
+int timer = 0;
+vector <int> timeIn (maxN);
+vector <int> timeOut(maxN);
+vector <vector <int> > f(maxN, vector <int> (maxM, 0));
+
+
+int dfs(int v, int p){
+    timer++;
+    timeIn[v] = timer;
+
+    f[v][0] = p;
+    for (int i = 1; i < maxM; i++){
+        f[v][i] = f[f[v][i - 1]][i - 1];
+    }
+
+    for (int i = 0; i < g[v].size(); i++){
+        int next = g[v][i];
+        if (next != p){
+            dfs(next, v);
+        }
+    }
+    timer++;
+    timeOut[v] = timer;
+
+}
+
+bool upper(int a, int b){
+    return timeIn[a] <= timeIn[b] && timeOut[a] >= timeOut[b];
+}
+
+int getLCA(int a, int b){
+    if (upper(a, b)){
+        return a;
+    }
+    if (upper(b, a)){
+        return b;
+    }
+    for (int i = maxM - 1; i >= 0; i--){
+        if (upper(f[a][i], b)){
+            continue;
+        }
+        a = f[a][i];
+    }
+    return f[a][0];
+}
+
+int main() {
+    freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n;
+    int a, b;
+    cin >> n;
+    for (int i = 1; i < n; i++){
+        cin >> a;
+        cin >> b;
+        g[a].push_back(b);
+    }
+    dfs(1, 1);
+    int q, w;
+    cin >> q;
+    cin >> w;
+    cout << getLCA(q, w) << endl;
+
+    return 0;
+}
