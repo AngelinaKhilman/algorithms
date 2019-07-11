@@ -1,0 +1,106 @@
+Армия
+(Время: 0,5 сек. Память: 16 Мб Сложность: 58%)
+Всем известно, что в армии без строевой подготовки и порядка дело не обходится и за этим там строго следят. Однажды утром сержант построил всех своих подчиненных в K рядов по N человек в каждом, но оказалось, что солдаты выстроились не по росту, и поэтому сержант решил их наказать. Солдаты должны были выстроиться по росту в каждом отдельном ряде так, что слева должны были стоять самые низкие, а справа самые высокие. Ну а поскольку в армии виноваты всегда слабые (низкие), то наказание было следующим: каждый солдат должен был отжаться столько раз, сколько солдат стоит от него слева выше его ростом.
+
+Оказалось, что все солдаты были разного роста, и многим пришлось отжиматься достаточно много раз. Сержанту стало интересно: сколько же раз в общей сложности пришлось отжаться солдатам?
+
+Помогите ему решить эту задачу!
+
+Входные данные
+В первой строке входного файла INPUT.TXT записаны два натуральных числа N и K (2 ≤ N ≤ 104, 1≤ K ≤20) – число солдат в каждом ряде и число рядов. Следующие K строк файла содержат ровно N разных натуральных чисел от 1 до N – рост солдат. Первое число ряда – рост первого солдата (самого левого в ряду), второе – рост второго, и т.д.
+
+Выходные данные
+В выходной файл OUTPUT.TXT необходимо вывести общее количество отжиманий, которые должны были выполнить солдаты.
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+ 
+using namespace std;
+ 
+const int maxN = 2e5 + 10;
+ 
+struct node {
+    int l;
+    int r;
+    int lson;
+    int rson;
+    int sum;
+};
+ 
+int a[maxN], perm[maxN], sz;
+node rsq[maxN];
+ 
+void build(int l, int r, int x) {
+    rsq[x].l = l;
+    rsq[x].r = r;
+    if (l == r) {
+        rsq[x].lson = -1;
+        rsq[x].rson = -1;
+        rsq[x].sum = 0;
+    } else {
+        int mid = (l + r) / 2;
+        rsq[x].lson = sz + 1;
+        rsq[x].rson = sz + 2;
+        sz += 2;
+        build(l, mid, rsq[x].lson);
+        build(mid + 1, r, rsq[x].rson);
+        rsq[x].sum = 0;
+    }
+}
+ 
+void modify(int x, int val, int root) {
+    if (rsq[root].l == x && rsq[root].r == x) {
+        rsq[root].sum = val;
+        return;
+    }
+    if (rsq[root].l > x) return;
+    if (rsq[root].r < x) return;
+    modify(x, val, rsq[root].lson);
+    modify(x, val, rsq[root].rson);
+    rsq[root].sum = rsq[rsq[root].lson].sum + rsq[rsq[root].rson].sum;
+}
+ 
+int getsum(int l, int r, int root) {
+    if (rsq[root].l > r) return 0;
+    if (rsq[root].r < l) return 0;
+    if (l <= rsq[root].l && rsq[root].r <= r) {
+        return rsq[root].sum;
+    }
+    return getsum(l, r, rsq[root].lson) + getsum(l, r, rsq[root].rson);
+}
+ 
+int solve(int n) {
+    for (int i = 1; i <= n; ++i) {
+        int x = a[i];
+        perm[x] = i;
+    }
+    sz = 1;
+    build(1, n, 1);
+    int ans = 0;
+    for (int x = n; x >= 1; --x) {
+        ans += getsum(1, perm[x] - 1, 1);
+        modify(perm[x], 1, 1);
+    }
+    return ans;
+}
+ 
+int main() {
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    ios_base::sync_with_stdio(false);
+    int n, k;
+    cin >> n >> k;
+    int answer = 0;
+    for (int it = 1; it <= k; ++it) {
+        for (int i = 1; i <= n; ++i) cin >> a[i];
+        answer += solve(n);
+    }
+    cout << answer << endl;
+    return 0;
+}
