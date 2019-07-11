@@ -1,0 +1,65 @@
+Наилучший делитель
+(Время: 1 сек. Память: 16 Мб Сложность: 26%)
+Будем говорить, что число a лучше числа b, если сумма цифр a больше суммы цифр числа b, а в случае равенства сумм их цифр, если число a меньше числа b. Например, число 124 лучше числа 123, так как у первого из них сумма цифр равна семи, а у второго – шести. Также, число 3 лучше числа 111, так как у них равны суммы цифр, но первое из них меньше.
+
+Дано число n. Найдите такой его делитель (само число n и единица считаются делителями числа n), который лучше любого другого делителя числа n.
+
+Входные данные
+Первая строка входного файла содержит целое число n (1 ≤ n ≤ 105).
+
+Выходные данные
+В выходной файл выведите ответ на задачу.
+
+
+
+
+
+
+
+
+
+import math
+ 
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n = int(line[0])
+    a = []
+    if math.ceil(math.sqrt(n)) > 1:
+        ww = math.ceil(math.sqrt(n))
+    else:
+        ww = 2
+    for i in range(1, ww):
+        if n % i == 0:
+            r = n // i
+            t = list(str(r))
+            sum = 0
+            for j in range(len(t)):
+                sum += int(t[j])
+            a.append((sum, n // i))
+            r = i
+            t = list(str(r))
+            sum = 0
+            for j in range(len(t)):
+                sum += int(t[j])
+            a.append((sum, i))
+ 
+    a.sort()
+    print(a)
+    q = a[len(a) - 1][0]
+    print(q)
+    b = []
+    for i in range(len(a)):
+        if a[i][0] == q:
+            b.append(a[i][1])
+    b.sort()
+    ans = b[0]
+    print(ans)
+    output_file.write(str(ans) + "\n")
+ 
+ 
+ 
+ 
+if __name__ == "__main__":
+    main()
