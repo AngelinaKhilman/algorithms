@@ -1,0 +1,27 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 30%)
+Назовем значение выражения 22n n-ой сверхстепенью числа 2. Таким образом, например, третья сверхстепень числа 2 равна 223 = 28 = 256.
+
+Ваша задача – вычислить n-ую сверхстепень двойки по модулю m.
+
+Входные данные
+Входной файл INPUT.TXT содержит два целых числа: n (0 ≤ n ≤ 105) и m (2 ≤ m ≤ 104).
+
+Выходные данные
+В выходной файл OUTPUT.TXT выведите ответ на задачу.
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    n, m = int(line[0]), int(line[1])
+    res = 2 % m
+    for i in range(n):
+        res = (res * res) % m
+    print(res)
+
+
+    output_file.write(str(res) + "\n")
+
+
+if __name__ == "__main__":
+    main()
