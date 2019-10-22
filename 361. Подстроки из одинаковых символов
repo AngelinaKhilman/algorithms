@@ -1,0 +1,38 @@
+(Время: 1 сек. Память: 16 Мб Сложность: 32%)
+В заданной строке, состоящей из малых английских букв, необходимо найти пару самых длинных подстрок, состоящих из одних и тех же букв (возможно, в разном порядке). Например, в строке twotwow это будут подстроки wotwo и otwow.
+
+Входные данные
+Входной файл INPUT.TXT содержит исходную строку, длиной от 1 до 100 символов.
+
+Выходные данные
+Выходной файл OUTPUT.TXT должен содержать единственное число – длину подстрок в максимальной паре, или 0, если таких подстрок в строке нет.
+
+
+
+import os
+import sys
+import math
+
+def main():
+    input_file = open("input.txt", "r")
+    output_file = open("output.txt", "w")
+    line = input_file.readline().split()
+    a = line[0]
+    lenu = 0
+    q = 0
+    w = 0
+    for i in range(len(a)):
+        f = a[i]
+        for j in range(i, len(a)):
+            if f == a[j]:
+                lenq = j - i
+                if lenq > lenu:
+                    lenu = lenq
+
+    print(lenu)
+    output_file.write(str(lenu) + "\n")
+
+
+
+if __name__ == "__main__":
+  main()
